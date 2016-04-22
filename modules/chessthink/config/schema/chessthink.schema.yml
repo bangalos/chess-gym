@@ -1,0 +1,18 @@
+chessthink.settings:
+  type: mapping
+  label: 'Chess Think settings'
+  mapping:
+    chessthink:
+      type: mapping
+      mapping:
+        page_title:
+          type: text
+          label: 'Chess think generator page title:'
+        source_text:
+          type: text
+          label: 'Source text for chess think generation:'
+block.settings.chessthink_block:
+  type: block_settings
+  label: 'Chess think block'
+  mapping:
+    chessthink_block_settings:

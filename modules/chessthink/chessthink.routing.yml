@@ -1,0 +1,14 @@
+chessthink.generate:
+  path: 'think'
+  defaults:
+    _controller: '\Drupal\chessthink\Controller\ChessThinkController::think'
+  requirements:
+    _permission: 'generate chess think'
+
+chessthink.form:
+  path: '/admin/config/development/chessthink'
+  defaults:
+    _form: 'Drupal\chessthink\Form\ChessThinkForm'
+    _title: 'Chess think settings'
+  requirements:
+    _permission: 'administer site configuration'

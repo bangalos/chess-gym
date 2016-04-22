@@ -1,0 +1,8 @@
+name: Chess think
+type: module
+description: 'Chess thinking methodology'
+package: Development
+libraries:
+  - chessthink/bluefever
+core: 8.x
+configure: chessthink.form

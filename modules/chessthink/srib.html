@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chess Gym: Think Module</title>
+    <link href="sites/default/files/chessgym/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="sites/default/files/chessgym/js/jqueryui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript"> if (!window.console) console = {log: function() {}}; </script>
+    <script src="sites/default/files/chessgym/js/jquery-1.10.1.min.js"></script>
+    <script src="sites/default/files/chessgym/js/jqueryui/jquery-ui.min.js"></script>
+  </head>
+<body>
+  <div id='leftPane'>
+    <div id="FenInDiv">
+      Fen:<br/>
+      <input type="text" id="fenIn"/>    
+      <button type="button" id="SetFen">Set Position</button>      
+    </div><!-- end of FenInDiv -->
+  
+    <div id="Board">
+    </div>  <!-- end of Board -->
+
+    <div id="EngineOutput">
+      <button type="button" id="SearchButton">Move Now</button> &nbsp; 
+      <button type="button" id="NewGameButton">New Game</button> &nbsp;
+      <button type="button" id="FlipButton">Flip Board</button> &nbsp;
+      <button type="button" id="TakeButton">Take Back</button> &nbsp;
+      Thinking Time: 
+      <select id="ThinkTimeChoice">
+        <option value="1">1s</option>
+        <option value="2">2s</option>
+        <option value="4">4s</option>
+        <option value="6">6s</option>
+        <option value="8">8s</option>
+        <option value="10">10s</option>
+      </select><br/><br/><br/>
+      <span id="BestOut">BestMove:</span><br/>
+      <span id="DepthOut">Depth:</span><br/>
+      <span id="ScoreOut">Score:</span><br/>
+      <span id="NodesOut">Nodes:</span><br/>
+      <span id="OrderingOut">Ordering:</span><br/>
+      <span id="TimeOut">Time:</span><br/><br/>
+      <span id="GameStatus"></span>
+    </div> <!-- end of EngineOutput -->
+  </div> <!-- end of leftPane -->
+
+  <div id='rightPane'>
+    <div id='moveTab'> 
+      <ul> 
+        <li><a href='#PlayerInputMyMove'>My Move</a></li>
+        <li><a href='#PlayerInputOpponentsMove'>Opponents Move</a></li>
+      </ul>
+      <div id="PlayerInputMyMove">
+        <div class='myMoveAccordion'>
+          <h3>Legal Moves</h3>
+          <div>
+            <label> What are the moves I have to consider? </label>
+            <input type="text" size="25" id="MovesToConsider">
+          </div>
+          <h3>Last Move Effect</h3>
+          <div>
+            How has the last move changed the position?<br/>
+            <label>Departure Effect</label><input type="text" name="" size="25"><br/>
+            <label>Arrival Effect</label><input type="text" name="" size="25"><br/>
+            <label>Opponent's threat</label><input type="text" name="" size="25"><br/>
+            <label>Opponent's objectives</label><input type="text" name="" size="25">
+          </div>
+          <h3>Key Objective</h3>
+          <div>
+            <label>What are the key features of the position? Or what is the most important problem to solve?</label>
+            <input type="text" name="" size="50">
+          </div>
+          <h3>Do I have a Combination</h3>
+          <div>
+            <label>Enter each line you think of and an evaluation of the position at the end of it</label>
+            <input type="textarea" name="" size="50">
+          </div>
+          <h3>My Considered Move</h3>
+          <div>
+            <label>Enter the move you are considering</label>
+            <input type="text" name="" size="50">
+          </div>
+          <h3>ShortTermPlan</h3>
+          <div>
+            <label>Enter 5 half moves for the most likely continuation / a.k.a short term plan </label>
+            <input type="text" name="" size="50">
+          </div>
+          <h3>BlunderCheck</h3>
+          <div>
+            <label>BlunderCheck your intended move</label>
+            <label>Enter your opponents mate threats</label><input type="text" name="" size="25">
+            <label>Enter your opponents checks</label><input type="text" name="" size="25">
+            <label>Enter your opponents captures</label><input type="text" name="" size="25">
+            <label>Enter your opponents threats to other pieces</label><input type="text" name="" size="25">
+          </div>
+        </div> <!-- myMoveAccordion div-->
+      </div> <!--PlayerInputMyMove div-->
+                   
+      <div id="PlayerInputOpponentsMove">
+        <div class='opponentMoveAccordion'>
+          <h3>Material</h3>
+          <div>
+            <label> Record Material Imbalance: </label>
+            <input type="text" size="25" id="MaterialImbalance"> </input>
+          </div>
+          <h3>King Safety</h3>
+          <div>
+            <label>Black King Safety:</label>
+            <input type="radio" value="Safe" name="BlackKingSafety">Safe</input>
+            <input type="radio" value="Unclear" name="BlackKingSafety">Unclear </input>
+            <input type="radio" value="Unsafe" name="BlackKingSafety">Unsafe</input>
+            <label>White King Safety:</label>
+            <input type="radio" value="Safe" name="WhiteKingSafety">Safe </input>
+            <input type="radio" value="Unclear" name="WhiteKingIsSafety">Unclear </input>
+            <input type="radio" value="Unsafe" name="WhiteKingSafety">Unsafe </input>
+          </div>
+          <h3>Development</h3>
+          <div>
+            <label>Who has lead in development? </label>
+            <input type="radio" value="White" name="Development">White</input>
+            <input type="radio" value="Unclear" name="Development">Unclear</input>
+            <input type="radio" value="Black" name="Development">Black</input>
+          </div>
+          <h3>Combination Vision</h3>
+          <div>
+            <label>Exposed King? Expose him even more</label><input type="text" name="" size="25"/><br/>
+            <label>Unprotected King? Sacrifice and mate!</label><input type="text" name="" size="25"/><br/>
+            <label>Undefended unit? Fork | pin | attack it</label><input type="text" name="" size="25"/><br/>
+            <label>Forkable unit? fork it</label><input type="text" name="" size="25"/><br/>
+            <label>Pinned unit? attack it</label><input type="text" name="" size="25"/><br/>
+            <label>Big pieces on a line? Pin or skewer</label><input type="text" name="" size="25"/><br/>
+            <label>Tied piece or overworked piece? Attack | Deflect </label><input type="text" name="" size="25"/><br/>
+            <label>Confined piece / immobile piece? Attack it.</label><input type="text" name="" size="25"/><br/>
+            <label>Masked battery? Unmask it</label><input type="text" name="" size="25"/><br/>
+            <label>Think X ray / Jump (even if illegal) - deflect the piece or threaten it</label><input type="text" name="" size="25"/><br/>
+            <label>Forcing move? mate threats, checks, jump-checks, jump-mates? - prepare it</label><input type="text" name="" size="25"/><br/>
+            <label>Examine "departure and arrival" effect of last two moves - and see if there were any weaknesses created by those - take advantage of them</label><input type="text" name="" size="25"/>
+          </div>
+          <h3>WEAKNESS IN OPPONENTS POSITION</h3>
+          <div>
+            <label>weak square - put a piece on it </label><input type="text" name="" size="25">
+            <label>weak pawn - fix it. Make opponent use pieces to defend it</label><input type="text" name="" size="25">
+            <label>pawns moved in front of castled king? pawn storm</label><input type="text" name="" size="25">
+            <label>Confined pieces? prevent freeing moves</label><input type="text" name="" size="25">
+            <label>Cramped game? keep opponent cramped. Prevent freeing moves.</label><input type="text" name="" size="25">
+            <label>Backward development? - stay ahead in development. Provoke a crisis. Bring off a combination.</label><input type="text" name="" size="25">
+          </div>
+          <h3>STRENGTH IN OPPONENTS POSITION</h3>
+          <div>
+            <label>Well posted piece - drive it away or exchange it</label><input type="text" name="" size="25">
+            <label>More space? advance your own pawns to gain space</label><input type="text" name="" size="25">
+            <label>Greater elasticity? loosen your own position. develop your least active piece. exchange pieces</label>
+            <input type="text" name="" size="25">
+            <label>Control of center? Pawn challenge.</label><input type="text" name="" size="25">
+          </div>
+          <h3>PRIORITIZE ALL THE CANDIDATE MOVES</h3>
+          <div>
+            <label>#1: Take advantage of opponent's weakness, #2: Establish own strengths, #3: Remove own weakness, #4: Remove or neutralize opponent’s strengths</label>
+            <input type="text" name="" size="50">
+          </div>
+        </div><!--opponents move accordion --!>
+      </div><!--opponentsMove--!>
+    </div><!-- moveTab div-->
+  <script>
+  $(function() {
+    $( ".myMoveAccordion" ).accordion();
+    $( ".opponentMoveAccordion" ).accordion();
+    $( "#moveTab" ).tabs();
+  });
+  </script>
+  </div> <!--rightPane div-->
+
+  <script src="sites/default/files/chessgym/js/defs.js"></script>
+  <script src="sites/default/files/chessgym/js/io.js"></script>
+  <script src="sites/default/files/chessgym/js/board.js"></script>
+  <script src="sites/default/files/chessgym/js/movegen.js"></script>
+  <script src="sites/default/files/chessgym/js/makemove.js"></script>
+  <script src="sites/default/files/chessgym/js/evaluate.js"></script>
+  <script src="sites/default/files/chessgym/js/pvtable.js"></script>
+  <script src="sites/default/files/chessgym/js/search.js"></script>
+  <script src="sites/default/files/chessgym/js/perft.js"></script>
+  <script src="sites/default/files/chessgym/js/gui.js"></script>
+  <script src="sites/default/files/chessgym/js/main.js"></script>
+
+</body>
+</html>
