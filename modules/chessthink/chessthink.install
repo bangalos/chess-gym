@@ -15,3 +15,32 @@ function chessthink_install() {
       'generate chess think' => TRUE,
   ));
 }
+function chessthink_schema() {
+  $schema['chessthink'] = array( 
+                           'fields' => array( 
+                             'id'=>array( 
+                               'type'=>'serial', 
+                               'not null' => TRUE,
+                              ),
+                              'username'=>array(
+                                'type' => 'varchar',
+                                'length' => 40,
+                                'not null' => TRUE,
+                              ),
+                              'ply'=>array(
+                                'type' => 'int',
+                                'not null' => TRUE,
+                              ),
+                              'gamename'=>array(
+                                'type' => 'varchar',
+                                'length' => 255,
+                                'not null' => TRUE,
+                              ),
+                              'braindump'=>array(
+                                'type' => 'text',
+                              ),
+                            ),
+                            'primary key' => array ('id'),
+                          );
+  return $schema;
+}

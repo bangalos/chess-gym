@@ -93,6 +93,7 @@
             <label>Enter your opponents captures</label><input type="text" name="" size="25">
             <label>Enter your opponents threats to other pieces</label><input type="text" name="" size="25">
           </div>
+          <button type="button" id="myMoveButtonSubmit">Submit My Move</button>
         </div> <!-- myMoveAccordion div-->
       </div> <!--PlayerInputMyMove div-->
                    
@@ -158,15 +159,53 @@
             <label>#1: Take advantage of opponent's weakness, #2: Establish own strengths, #3: Remove own weakness, #4: Remove or neutralize opponent’s strengths</label>
             <input type="text" name="" size="50">
           </div>
+          <button type="button" id="opponentsMoveButtonSubmit">Submit Opponents Move</button>
         </div><!--opponents move accordion --!>
       </div><!--opponentsMove--!>
     </div><!-- moveTab div-->
   <script>
   $(function() {
-    $( ".myMoveAccordion" ).accordion();
-    $( ".opponentMoveAccordion" ).accordion();
+    $( ".myMoveAccordion" ).accordion({heightStyle: "content"});
+    $( ".opponentMoveAccordion" ).accordion({heightStyle: "content"});
     $( "#moveTab" ).tabs();
   });
+
+  function SribInteractOpponentsMove() {
+    console.log("In Opponent's move");
+    $( "#moveTab" ).tabs({active: 1});
+    $('.Square').attr("disabled", "disabled");
+    $('#Board').attr("style", "opacity:0.4;");
+  }
+
+  function SribInteractMyMove() {
+    console.log("In My move");
+    $( "#moveTab" ).tabs({active: 0});
+    $('.Square').attr("disabled", "disabled");
+    $('#Board').attr("style", "opacity:0.4;");
+  }
+  $('#opponentsMoveButtonSubmit').click( function () {
+    sribStoreMove(GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
+    StartSearchPart2();
+    $('.Square').attr("disabled", "disabled");
+    $('#Board').attr("style", "opacity:0.4;");
+  });
+  $('#myMoveButtonSubmit').click( function () {
+    sribStoreMove(GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
+    $('.Square').removeAttr("disabled");
+    $('#Board').attr("style", "opacity:1.0;");
+  });
+
+  function sribStoreMove ($ply, $move, $thoughts_json) {
+    $.post("braindump",
+    {
+        ply: $ply,
+        move: $move,
+        braindump: $thoughts_json
+    },
+    function(data, status){
+        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+    });
+  }
   </script>
   </div> <!--rightPane div-->
 

@@ -5,6 +5,13 @@ chessthink.generate:
   requirements:
     _permission: 'generate chess think'
 
+chessthink.braindump:
+  path: 'braindump'
+  defaults:
+    _controller: '\Drupal\chessthink\Controller\ChessThinkController::braindump'
+  requirements:
+    _permission: 'generate chess think'
+
 chessthink.form:
   path: '/admin/config/development/chessthink'
   defaults:

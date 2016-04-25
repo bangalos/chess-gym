@@ -100,6 +100,9 @@ $(document).on('click','.Piece', function (e) {
 });
 
 $(document).on('click','.Square', function (e) {
+        if ($('.Square').attr('disabled') == 'disabled') {return;} else {
+	   console.log('Square Click happened anyway: ' + $('.Square').attr('disabled'));	
+        } 
 	console.log('Square Click');	
 	if(UserMove.from != SQUARES.NO_SQ) {
 		UserMove.to = ClickedSquare(e.pageX, e.pageY);
@@ -315,17 +318,12 @@ function StartSearch() {
 
 	SribInteractOpponentsMove();
 
+}
+
+function StartSearchPart2() {
 	MakeMove(SearchController.best);
 	MoveGUIPiece(SearchController.best);
 	CheckAndSet();
 
 	SribInteractMyMove();
-}
-
-function SribInteractOpponentsMove() {
-        console.log("In Opponent's move");
-}
-
-function SribInteractMyMove() {
-        console.log("In My move");
 }
