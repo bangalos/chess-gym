@@ -52,114 +52,82 @@
       </ul>
       <div id="PlayerInputMyMove">
         <div class='myMoveAccordion'>
-          <h3>Legal Moves</h3>
+          <h3>My Bullet Move: Time control = 1 sec/move </h3>
           <div>
-            <label> What are the moves I have to consider? </label>
-            <input type="text" size="25" id="MovesToConsider">
+            <label>Enter the first move that came to your mind in a naonsecond:</label>
+            <input type="text" size="8" id="MyBulletMove">
           </div>
-          <h3>Last Move Effect</h3>
+          <h3>My Blitz Move: Time control = 30 sec/move</h3>
           <div>
-            How has the last move changed the position?<br/>
-            <label>Departure Effect</label><input type="text" name="" size="25"><br/>
-            <label>Arrival Effect</label><input type="text" name="" size="25"><br/>
-            <label>Opponent's threat</label><input type="text" name="" size="25"><br/>
-            <label>Opponent's objectives</label><input type="text" name="" size="25">
+            <label>Blunder check your Bullet move. Examine departure and arrival effect of your considered move. Only if you think it is a blunder, think of another move, and repeat this step. Stop when you have a non blunder. Enter it below.</label>
+            <input type="text" size="8" id="MyBlitzMove">
           </div>
-          <h3>Key Objective</h3>
+          <h3>My Regular Move: Time control = 2 min/move</h3>
           <div>
-            <label>What are the key features of the position? Or what is the most important problem to solve?</label>
-            <input type="text" name="" size="50">
+            <label>Enter your opponent's last move:</label>
+            <input type="text" size="8" id="MyOpponentsLastMove">
+            <label>Was his last move a blunder? Examine departure effect and arrival effect. Enter the lines you considered.</label>
+            <textarea id="MyOpponentsLastMoveBlunderCheck"> </textarea>
+            <label>What was the purpose of his last move? Enter three possibilities</label>
+            <textarea id="MyOpponentsLastMovePurpose"> </textarea>
+            <label>What is the likely continuation of the game after I make my move? Enter 5 half-moves (my move - his move - my move - his move - my move)</label>
+            <textarea id="LikelyGameContinuation"> </textarea>
           </div>
-          <h3>Do I have a Combination</h3>
+          <h3>My Critical Move: Exceptional situation: spend 15 min</h3>
           <div>
-            <label>Enter each line you think of and an evaluation of the position at the end of it</label>
-            <input type="textarea" name="" size="50">
+            <label>You can spend a lot of time on a critical position. Is this a critical position? Why?</label>
+            <textarea id="IsThisCriticalPosition"> </textarea>
+            <label>Enter all the lines you considered</label>
+            <textarea id="CriticalPositionThoughts"> </textarea>
           </div>
-          <h3>My Considered Move</h3>
-          <div>
-            <label>Enter the move you are considering</label>
-            <input type="text" name="" size="50">
-          </div>
-          <h3>ShortTermPlan</h3>
-          <div>
-            <label>Enter 5 half moves for the most likely continuation / a.k.a short term plan </label>
-            <input type="text" name="" size="50">
-          </div>
-          <h3>BlunderCheck</h3>
-          <div>
-            <label>BlunderCheck your intended move</label>
-            <label>Enter your opponents mate threats</label><input type="text" name="" size="25">
-            <label>Enter your opponents checks</label><input type="text" name="" size="25">
-            <label>Enter your opponents captures</label><input type="text" name="" size="25">
-            <label>Enter your opponents threats to other pieces</label><input type="text" name="" size="25">
-          </div>
-          <button type="button" id="myMoveButtonSubmit">Submit My Move</button>
+          <button type="button" id="myMoveButtonSubmit">Record my thoughts; Goto next screen</button>
         </div> <!-- myMoveAccordion div-->
       </div> <!--PlayerInputMyMove div-->
                    
       <div id="PlayerInputOpponentsMove">
         <div class='opponentMoveAccordion'>
-          <h3>Material</h3>
+          <h3>Tactical Minefield</h3>
           <div>
-            <label> Record Material Imbalance: </label>
-            <input type="text" size="25" id="MaterialImbalance"> </input>
+            <label>Enter WHITE's candidate moves motivated by Tactical considerations</label>
+            <textarea id="TacticalMinefieldWhitesCandidates"></textarea>
+            <label>Enter BLACK's candidate moves motivated by Tactical considerations</label>
+            <textarea id="TacticalMinefieldBlacksCandidates"></textarea>
+
+            <table id="TacticPrimer"><tr><th>If you notice the tactical theme of ...</th><th>Then your response is ...</th></tr>
+            <tr><td>1. Exposed King?</td><td>Expose him even more</td></tr>
+            <tr><td>2. Unprotected King?</td><td> Sacrifice and mate!</td></tr>
+            <tr><td>3. Undefended unit?</td><td> Fork | pin | attack it</td></tr>
+            <tr><td>4. Forkable unit?</td><td> Fork it</td></tr>
+            <tr><td>5. Pinned unit?</td><td> Attack it</td></tr>
+            <tr><td>6. Big pieces on a line?</td><td> Pin or skewer</td></tr>
+            <tr><td>7. Tied piece or overworked piece?</td><td> Attack | Deflect </td></tr>
+            <tr><td>8. Confined piece / immobile piece?</td><td> Attack it.</td></tr>
+            <tr><td>9. Masked battery? </td><td>Unmask it</td></tr>
+            <tr><td>10. Think X ray / Jump (even if illegal) </td><td>Deflect the piece or threaten it</td></tr>
+            <tr><td>11. Forcing move? mate threats, checks, jump-checks, jump-mates? </td><td> Prepare it</td></tr>
+            </table>
           </div>
-          <h3>King Safety</h3>
+          <h3>Positional Minefield</h3>
           <div>
-            <label>Black King Safety:</label>
-            <input type="radio" value="Safe" name="BlackKingSafety">Safe</input>
-            <input type="radio" value="Unclear" name="BlackKingSafety">Unclear </input>
-            <input type="radio" value="Unsafe" name="BlackKingSafety">Unsafe</input>
-            <label>White King Safety:</label>
-            <input type="radio" value="Safe" name="WhiteKingSafety">Safe </input>
-            <input type="radio" value="Unclear" name="WhiteKingIsSafety">Unclear </input>
-            <input type="radio" value="Unsafe" name="WhiteKingSafety">Unsafe </input>
+            <label>Enter WHITE's candidate moves motivated by Positional considerations</label>
+            <textarea id="PositionalalMinefieldWhitesCandidates"></textarea>
+            <label>Enter BLACK's candidate moves motivated by Positional considerations</label>
+            <textarea id="PositionalMinefieldBlacksCandidates"></textarea>
+
+            <table id="PositionalPrimer"><tr><th>If you notice the positional theme of ...</th><th>Then your response is ...</th></tr>
+            <tr><td>1. weak square?</td><td>Put a piece on it</td></tr> 
+            <tr><td>2. weak pawn?</td><td>Fix it. Make opponent use pieces to defend it</td></tr>
+            <tr><td>3. pawns moved in front of castled king?</td><td>Pawn storm</td></tr>
+            <tr><td>4. Confined pieces?</td><td>Prevent freeing moves</td></tr>
+            <tr><td>5. Cramped game?</td><td>Keep opponent cramped. Prevent freeing moves.</td></tr>
+            <tr><td>6. Backward development?</td><td>Stay ahead in development. Provoke a crisis. Bring off a combination.</td></tr>
+            <tr><td>7. Well posted piece?</td><td>Drive it away or exchange it</td></tr>
+            <tr><td>8. More space?</td><td>Advance your own pawns to gain space</td></tr>
+            <tr><td>9. Greater elasticity?</td><td>Loosen your own position. develop your least active piece. exchange pieces</td></tr>
+            <tr><td>10. Control of center?</td><td>Pawn challenge.</td></tr>
+            </table>
           </div>
-          <h3>Development</h3>
-          <div>
-            <label>Who has lead in development? </label>
-            <input type="radio" value="White" name="Development">White</input>
-            <input type="radio" value="Unclear" name="Development">Unclear</input>
-            <input type="radio" value="Black" name="Development">Black</input>
-          </div>
-          <h3>Combination Vision</h3>
-          <div>
-            <label>Exposed King? Expose him even more</label><input type="text" name="" size="25"/><br/>
-            <label>Unprotected King? Sacrifice and mate!</label><input type="text" name="" size="25"/><br/>
-            <label>Undefended unit? Fork | pin | attack it</label><input type="text" name="" size="25"/><br/>
-            <label>Forkable unit? fork it</label><input type="text" name="" size="25"/><br/>
-            <label>Pinned unit? attack it</label><input type="text" name="" size="25"/><br/>
-            <label>Big pieces on a line? Pin or skewer</label><input type="text" name="" size="25"/><br/>
-            <label>Tied piece or overworked piece? Attack | Deflect </label><input type="text" name="" size="25"/><br/>
-            <label>Confined piece / immobile piece? Attack it.</label><input type="text" name="" size="25"/><br/>
-            <label>Masked battery? Unmask it</label><input type="text" name="" size="25"/><br/>
-            <label>Think X ray / Jump (even if illegal) - deflect the piece or threaten it</label><input type="text" name="" size="25"/><br/>
-            <label>Forcing move? mate threats, checks, jump-checks, jump-mates? - prepare it</label><input type="text" name="" size="25"/><br/>
-            <label>Examine "departure and arrival" effect of last two moves - and see if there were any weaknesses created by those - take advantage of them</label><input type="text" name="" size="25"/>
-          </div>
-          <h3>WEAKNESS IN OPPONENTS POSITION</h3>
-          <div>
-            <label>weak square - put a piece on it </label><input type="text" name="" size="25">
-            <label>weak pawn - fix it. Make opponent use pieces to defend it</label><input type="text" name="" size="25">
-            <label>pawns moved in front of castled king? pawn storm</label><input type="text" name="" size="25">
-            <label>Confined pieces? prevent freeing moves</label><input type="text" name="" size="25">
-            <label>Cramped game? keep opponent cramped. Prevent freeing moves.</label><input type="text" name="" size="25">
-            <label>Backward development? - stay ahead in development. Provoke a crisis. Bring off a combination.</label><input type="text" name="" size="25">
-          </div>
-          <h3>STRENGTH IN OPPONENTS POSITION</h3>
-          <div>
-            <label>Well posted piece - drive it away or exchange it</label><input type="text" name="" size="25">
-            <label>More space? advance your own pawns to gain space</label><input type="text" name="" size="25">
-            <label>Greater elasticity? loosen your own position. develop your least active piece. exchange pieces</label>
-            <input type="text" name="" size="25">
-            <label>Control of center? Pawn challenge.</label><input type="text" name="" size="25">
-          </div>
-          <h3>PRIORITIZE ALL THE CANDIDATE MOVES</h3>
-          <div>
-            <label>#1: Take advantage of opponent's weakness, #2: Establish own strengths, #3: Remove own weakness, #4: Remove or neutralize opponent’s strengths</label>
-            <input type="text" name="" size="50">
-          </div>
-          <button type="button" id="opponentsMoveButtonSubmit">Submit Opponents Move</button>
+          <button type="button" id="opponentsMoveButtonSubmit">Record My Thoughts; Go to next screen</button>
         </div><!--opponents move accordion --!>
       </div><!--opponentsMove--!>
     </div><!-- moveTab div-->
@@ -175,6 +143,8 @@
     $( "#moveTab" ).tabs({active: 1});
     $('.Square').attr("disabled", "disabled");
     $('#Board').attr("style", "opacity:0.4;");
+    $('#rightPane').attr("style", "opacity:1.0;");
+    $('#rightPane').removeAttr("disabled");
   }
 
   function SribInteractMyMove() {
@@ -182,17 +152,27 @@
     $( "#moveTab" ).tabs({active: 0});
     $('.Square').attr("disabled", "disabled");
     $('#Board').attr("style", "opacity:0.4;");
+    $('#rightPane').attr("style", "opacity:1.0;");
+    $('#rightPane').removeAttr("disabled");
   }
   $('#opponentsMoveButtonSubmit').click( function () {
+    if ($('#rightPane').attr('disabled') == 'disabled') {return;}
     sribStoreMove(GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
     StartSearchPart2();
     $('.Square').attr("disabled", "disabled");
     $('#Board').attr("style", "opacity:0.4;");
   });
   $('#myMoveButtonSubmit').click( function () {
-    sribStoreMove(GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
+    if ($('#rightPane').attr('disabled') == 'disabled') {return;}
+    if (GameBoard.hisPly == 0) {
+        sribStoreMove(GameBoard.hisPly-1, "null", "empty thoughts");
+    } else {
+        sribStoreMove(GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
+    }
     $('.Square').removeAttr("disabled");
     $('#Board').attr("style", "opacity:1.0;");
+    $('#rightPane').attr("style", "opacity:0.4;");
+    $('#rightPane').attr("disabled", "disabled");
   });
 
   function sribStoreMove ($ply, $move, $thoughts_json) {

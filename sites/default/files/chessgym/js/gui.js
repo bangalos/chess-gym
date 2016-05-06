@@ -20,6 +20,7 @@ function NewGame(fenStr) {
 	PrintBoard();
 	SetInitialBoardPieces();
 	CheckAndSet();
+        SribInteractMyMove();
 }
 
 function ClearAllPieces() {

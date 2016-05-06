@@ -24,23 +24,34 @@
 	border-width: 2px;
 }
 
-#PlayerInputMyMove {
-}
+#PlayerInputMyMove { }
 #PlayerInputMyMove label { display: block; }
 #PlayerInputOpponentsMove label { display: block; }
-#PlayerInputOpponentsMove {
+#PlayerInputOpponentsMove { }
+#EngineOutput{ }
 
+table#TacticPrimer {
+        font-size: small;
 }
-#EngineOutput{
-
+table#TacticPrimer th{
+        width: 50%;
 }
-
+table#PositionalPrimer {
+        font-size: small;
+}
+table#PositionalPrimer th{
+        width: 50%;
+}
 .Square {
 	position: absolute;	
 	width: 60px;
 	height: 60px;
 }
-
+textarea {
+        width: 90%;
+        height: 80px;
+        margin: 20px 0;
+}
 .Dark {
 	background-color:#5fbcd3;
 }
