@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chess Gym: Think Module</title>
+    <link href="sites/default/files/chessgym/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="sites/default/files/chessgym/js/jqueryui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript"> if (!window.console) console = {log: function() {}}; </script>
+    <script src="sites/default/files/chessgym/js/jquery-1.10.1.min.js"></script>
+    <script src="sites/default/files/chessgym/js/jqueryui/jquery-ui.min.js"></script>
+  </head>
+<body>
+  <div id='leftPane'>
+    <div id="Board">
+    </div>  <!-- end of Board -->
+
+    <div id="EngineOutput">
+      <button type="button" id="SearchButton">Move Now</button> &nbsp; 
+      <button type="button" id="NewGameButton">New Game</button> &nbsp;
+      <button type="button" id="FlipButton">Flip Board</button> &nbsp;
+      <button type="button" id="TakeButton">Take Back</button> &nbsp;
+      Thinking Time: 
+      <select id="ThinkTimeChoice">
+        <option value="1">1s</option>
+        <option value="2">2s</option>
+        <option value="4">4s</option>
+        <option value="6">6s</option>
+        <option value="8">8s</option>
+        <option value="10">10s</option>
+      </select><br/><br/><br/>
+      <span id="BestOut">BestMove:</span><br/>
+      <span id="DepthOut">Depth:</span><br/>
+      <span id="ScoreOut">Score:</span><br/>
+      <span id="NodesOut">Nodes:</span><br/>
+      <span id="OrderingOut">Ordering:</span><br/>
+      <span id="TimeOut">Time:</span><br/><br/>
+      <span id="GameStatus"></span>
+    </div> <!-- end of EngineOutput -->
+  </div> <!-- end of leftPane -->
+
+  <div id='rightPane'>
+    <div id='moveTab'> 
+      <ul> 
+        <li><a href='#PlayerInputMyMove'>My Move</a></li>
+        <li><a href='#PlayerInputOpponentsMove'>Opponents Move</a></li>
+      </ul>
+      <div id="PlayerInputMyMove">
+        <div class='myMoveAccordion'>
+          <h3>My Bullet Move: Time control = 1 sec/move </h3>
+          <div>
+            <label display="inline">Intuition: Enter the first move that came to your mind in a naonsecond:</label>
+            <input type="text" size="8" id="MyBulletMove" display="inline">
+            <label>Justify it verbally. Just give a reason why it might be good</label>
+            <textarea id="myMoveJustification"> </textarea>
+            <label>OPPONENT'S Move: Justify it verbally. Just give a reason why your opponent thought their move might be good</label>
+            <textarea id="oppMoveJustification"> </textarea>
+            <label>Enter all the lines you considered 2.5 moves deep</label>
+            <textarea id="LinesConsidered"> </textarea>
+            <label>Have you BlunderChecked?</label>
+            <span>No</span><input type="radio" name="blundercheck" value="No" id="bcno" checked="checked"/>
+            <span>Yes</span><input type="radio" name="blundercheck" value="Yes" id="bcyes"/>
+            <br/>
+            <button type="button" id="myMoveButtonSubmit">Record my thoughts; Goto next screen</button>
+          </div>
+        </div> <!-- myMoveAccordion div-->
+      </div> <!--PlayerInputMyMove div-->
+                   
+      <div id="PlayerInputOpponentsMove">
+        <div class='opponentMoveAccordion'>
+          <h3>Reconnaissance: A preliminary survey to gather information</h3>
+          <div>
+            <label>Enter WHITE's candidate moves</label>
+            <textarea id="WhitesCandidates"></textarea>
+            <label>Enter BLACK's candidate moves</label>
+            <textarea id="BlacksCandidates"></textarea>
+
+            <button type="button" id="opponentsMoveButtonSubmit">Record My Thoughts; Go to next screen</button>
+            <h4>Tactical Primer</h4>
+            <table id="TacticPrimer"><tr><th>If you notice the tactical theme of ...</th><th>Then your response is ...</th></tr>
+            <tr><td>1a. Is King Exposed?</td><td>Expose him even more</td></tr>
+            <tr><td>1b. Is King Unprotected?</td><td> Sacrifice and mate!</td></tr>
+            <tr><td>2.  LPDO: Undefended unit?</td><td> Fork | pin | attack it</td></tr>
+            <tr><td>3a. Geometry: Forkable unit?</td><td> Fork it</td></tr>
+            <tr><td>3b. Geometry: Pinned unit?</td><td> Attack it</td></tr>
+            <tr><td>3c. Geometry: Big pieces on a line?</td><td> Pin or skewer</td></tr>
+            <tr><td>3d. Geometry: Masked battery? </td><td>Unmask it</td></tr>
+            <tr><td>3e. Geometry: Think X ray / Jump (even if illegal) </td><td>Deflect the piece or threaten it</td></tr>
+            <tr><td>4Geometry: Forcing move? mate threats, checks, jump-checks, jump-mates? </td><td> Prepare it</td></tr>
+            <tr><td>5. Tied piece or overworked piece?</td><td> Attack | Deflect </td></tr>
+            <tr><td>6. Confined piece / immobile piece?</td><td> Attack it.</td></tr>
+            </table>
+
+            <h4>Positional Primer</h4>
+            <table id="PositionalPrimer"><tr><th>If you notice the positional theme of ...</th><th>Then your response is ...</th></tr>
+            <tr><td>1. weak square?</td><td>Put a piece on it</td></tr> 
+            <tr><td>2. weak pawn?</td><td>Fix it. Make opponent use pieces to defend it</td></tr>
+            <tr><td>3. pawns moved in front of castled king?</td><td>Pawn storm</td></tr>
+            <tr><td>4. Confined pieces?</td><td>Prevent freeing moves</td></tr>
+            <tr><td>5. Cramped game?</td><td>Keep opponent cramped. Prevent freeing moves.</td></tr>
+            <tr><td>6. Backward development?</td><td>Stay ahead in development. Provoke a crisis. Bring off a combination.</td></tr>
+            <tr><td>7. Well posted piece?</td><td>Drive it away or exchange it</td></tr>
+            <tr><td>8. More space?</td><td>Advance your own pawns to gain space</td></tr>
+            <tr><td>9. Greater elasticity?</td><td>Loosen your own position. develop your least active piece. exchange pieces</td></tr>
+            <tr><td>10. Control of center?</td><td>Pawn challenge.</td></tr>
+            </table>
+          </div>
+        </div><!--opponents move accordion --!>
+      </div><!--opponentsMove--!>
+    </div><!-- moveTab div-->
+  <script>
+
+  $(function() {
+    $( ".myMoveAccordion" ).accordion({heightStyle: "content"});
+    $( ".opponentMoveAccordion" ).accordion({heightStyle: "content"});
+    $( "#moveTab" ).tabs();
+  });
+
+  function SribInteractOpponentsMove() {
+    console.log("In Opponent's move");
+    $( "#moveTab" ).tabs({active: 1});
+    $('.Square').attr("disabled", "disabled");
+    $('#Board').attr("style", "opacity:0.4;");
+    $('#rightPane').attr("style", "opacity:1.0;");
+    $('#rightPane').removeAttr("disabled");
+  }
+
+  function SribInteractMyMove() {
+    console.log("In My move");
+    $( "#moveTab" ).tabs({active: 0});
+    $('.Square').attr("disabled", "disabled");
+    $('#Board').attr("style", "opacity:0.4;");
+    $('#rightPane').attr("style", "opacity:1.0;");
+    $('#rightPane').removeAttr("disabled");
+  }
+  $('#opponentsMoveButtonSubmit').click( function () {
+    if ($('#rightPane').attr('disabled') == 'disabled') {return;}
+    if (typeof (GameBoard.history[GameBoard.hisPly-1]) == "undefined") {
+        sribStoreMove(-1, "00", "empty thoughts");
+    } else {
+        sribStoreMove(posid, GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
+    }
+    $('textarea#WhitesCandidates').val("");
+    $('textarea#BlacksCandidates').val("");
+    StartSearchPart2();
+    $('.Square').attr("disabled", "disabled");
+    $('#Board').attr("style", "opacity:0.4;");
+  });
+  $('#myMoveButtonSubmit').click( function () {
+    if ($('#rightPane').attr('disabled') == 'disabled') {return;}
+    sribStoreMove(posid, GameBoard.hisPly-1, PrMove(GameBoard.history[GameBoard.hisPly-1].move), "empty thoughts");
+    $('textarea#oppMoveJustification').val("");
+    $('textarea#myMoveJustification').val("");
+    $('textarea#LinesConsidered').val("");
+    $('#MyBulletMove').val("");
+    $('#bcno').prop('checked', true);
+    $('.Square').removeAttr("disabled");
+    $('#Board').attr("style", "opacity:1.0;");
+    $('#rightPane').attr("style", "opacity:0.4;");
+    $('#rightPane').attr("disabled", "disabled");
+  });
+
+  function sribStoreMove ($posid, $ply, $move, $thoughts_json) {
+    $.post("braindump",
+    {
+        posid: $posid,
+        ply: $ply,
+        move: $move,
+        braindump: $thoughts_json
+    },
+    function(data, status){
+        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+    });
+  }
+  </script>
+  </div> <!--rightPane div-->
+
+  <script src="sites/default/files/chessgym/js/defs.js"></script>
+  <script src="sites/default/files/chessgym/js/io.js"></script>
+  <script src="sites/default/files/chessgym/js/board.js"></script>
+  <script src="sites/default/files/chessgym/js/movegen.js"></script>
+  <script src="sites/default/files/chessgym/js/makemove.js"></script>
+  <script src="sites/default/files/chessgym/js/evaluate.js"></script>
+  <script src="sites/default/files/chessgym/js/pvtable.js"></script>
+  <script src="sites/default/files/chessgym/js/search.js"></script>
+  <script src="sites/default/files/chessgym/js/perft.js"></script>
+  <script src="sites/default/files/chessgym/js/gui.js"></script>
+  <script src="sites/default/files/chessgym/js/main.js"></script>
+  <script>
+  var fenStr = "SECRETFEN";
+  var oppmove = "SECRETOPPMOVE";
+  var mymove = "SECRETMYMOVE";
+  var generalbackground = "SECRETGENBG";
+  var posid = "SECRETPOSID";
+
+$(function() {
+        console.log("Initializing the game board with FEN");
+        NewGame(fenStr);
+        StartSearch();
+        //SribInteractOpponentsMove();
+});
+
+  </script>
+</body>
+</html>

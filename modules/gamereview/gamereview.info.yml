@@ -1,0 +1,5 @@
+name: Game Review
+type: module
+description: 'Game Review Methodology'
+package: Development
+core: 8.x
