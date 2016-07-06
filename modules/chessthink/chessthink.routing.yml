@@ -1,3 +1,10 @@
+chessthink.purdymethod:
+  path: 'purdymethod'
+  defaults:
+    _controller: '\Drupal\chessthink\Controller\ChessThinkController::purdymethod'
+  requirements:
+    _permission: 'generate chess think'
+
 chessthink.generate:
   path: 'think'
   defaults:

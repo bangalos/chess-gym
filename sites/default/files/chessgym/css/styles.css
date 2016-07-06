@@ -30,16 +30,10 @@
 #PlayerInputOpponentsMove { }
 #EngineOutput{ }
 
-table#TacticPrimer {
+table#TacticPrimer, table#PositionalPrimer, table#MoveChoicePrimer {
         font-size: small;
 }
-table#TacticPrimer th{
-        width: 50%;
-}
-table#PositionalPrimer {
-        font-size: small;
-}
-table#PositionalPrimer th{
+table#TacticPrimer th, table#PositionalPrimer th, table#MoveChoicePrimer th{
         width: 50%;
 }
 .Square {
