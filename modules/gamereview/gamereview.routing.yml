@@ -1,6 +1,6 @@
 gamereview.gamereview:
-  path: 'gamereview'
+  path: '/gamereview/{gamedir}/{gamename}'
   defaults:
     _controller: '\Drupal\gamereview\Controller\GameReviewController::gamereview'
   requirements:
-    _permission: 'generate game review'
+    _permission: 'access content'
