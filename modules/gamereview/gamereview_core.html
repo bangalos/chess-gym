@@ -31,7 +31,8 @@
        '',
        'SECRETPGN'];
 
-    var all_moves, user_input_move,moveThreshold, counter, board, game, scratch_game, fenEl, pgnEl, memEl;
+    var all_moves,moveThreshold, counter, board, game, scratch_game, fenEl, pgnEl, memEl;
+    var user_input_move = 'blank';
     var fifteenTimer = 15;
     var keymove_score = "Neutral";
     var your_score= 0;
@@ -128,7 +129,9 @@
           keymove_score = "Neutral";
         }
         plies_remaining = all_moves.length - counter;
-        score_html = "Plies remaining: " + plies_remaining + "<br/>Your Score: " + your_score + "/" + total_moves;
+        score_html = "User move: " + user_input_move + "<br/>";
+        score_html += "Game move: " + all_moves[counter-1] + "<br/>";
+        score_html +=  "Plies remaining: " + plies_remaining + "<br/>Your Score: " + your_score + "/" + total_moves;
 
         statusEl.html(status);
         fenEl.html(game.fen());
@@ -182,7 +185,7 @@
           counter++;
           updateStatus();
           if (counter+1 < all_moves.length) {
-            setTimeout(interactiveMove, 1000);
+            setTimeout(interactiveMove, 3000);
           } else {
             game_ended = 1;
           }
@@ -202,7 +205,7 @@
             }
             updateStatus();
             if (counter+2 < all_moves.length) {
-              setTimeout(interactiveMove, 1000);
+              setTimeout(interactiveMove, 3000);
             }
           }
         }
