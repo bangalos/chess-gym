@@ -442,7 +442,7 @@ function expandConfig() {
   if (cfg.hasOwnProperty('pieceTheme') !== true ||
       (typeof cfg.pieceTheme !== 'string' &&
        typeof cfg.pieceTheme !== 'function')) {
-    cfg.pieceTheme = '/chessgym/sites/default/files/chessgym/images/chesspieces/wikipedia/{piece}.png';
+    cfg.pieceTheme = '/sites/default/files/chessgym/images/chesspieces/wikipedia/{piece}.png';
   }
 
   // animation speeds
