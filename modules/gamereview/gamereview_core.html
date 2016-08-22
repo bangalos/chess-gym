@@ -87,12 +87,12 @@
   
   <script defer='defer'>
       // required for debugging
-      //      document.onmousemove = function(e){
-      //          var x = e.pageX;
-      //          var y = e.pageY;
-      //          console.log("X is "+x+" and Y is "+y);
-      //      };
-      
+//            document.onmousemove = function(e){
+//                var x = e.pageX;
+//                var y = e.pageY;
+//                console.log("X is "+x+" and Y is "+y);
+//            };
+
     var INIT_TIMER = 15;
     var memorable_init = 'SECRETGENBG';
     var pgn_init = ['[Event "Chess Gym Game Review"]',
@@ -495,10 +495,10 @@
         toX = parseInt(toDivOffset.left + toDiv.width() / 2);
         toY = parseInt(toDivOffset.top + toDiv.height() / 2);
         
-        arrowSvgOffset = $('#arrow-svg').offset();
+        var arrowSvgOffset = $('#arrow-svg').offset();
 
         var path = document.getElementById('arrow-path');
-        path.setAttribute('d', 'M'+(fromX-435)+','+(fromY-286)+' L'+(toX-435)+','+(toY-286));
+        path.setAttribute('d', 'M'+(fromX-arrowSvgOffset.left)+','+(fromY-arrowSvgOffset.top)+' L'+(toX-arrowSvgOffset.left)+','+(toY-arrowSvgOffset.top));
 
         $('#arrow-svg').css("zIndex", 0);
         $('.chessboard-63f37').css("zIndex", -1);
