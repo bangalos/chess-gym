@@ -16,6 +16,10 @@
 // Chess Util Functions
 //------------------------------------------------------------------------------
 var COLUMNS = 'abcdefgh'.split('');
+  
+function getUrlRoot() {
+    return (window.location.hostname == 'localhost') ? '/drupal' : '';
+}
 
 function validMove(move) {
   // move should be a string
@@ -442,7 +446,7 @@ function expandConfig() {
   if (cfg.hasOwnProperty('pieceTheme') !== true ||
       (typeof cfg.pieceTheme !== 'string' &&
        typeof cfg.pieceTheme !== 'function')) {
-    cfg.pieceTheme = '/sites/default/files/chessgym/images/chesspieces/wikipedia/{piece}.png';
+    cfg.pieceTheme = getUrlRoot() + '/sites/default/files/chessgym/images/chesspieces/wikipedia/{piece}.png';
   }
 
   // animation speeds
