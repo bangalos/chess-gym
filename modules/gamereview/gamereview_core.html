@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+  <!--<meta name="viewport" content="width=600,user-scalable=no" />-->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   
@@ -150,7 +151,7 @@
           if (counter >= moveThreshold) {
               drawArrow(source, target, 0);
               real_move_to = all_moves[counter]
-              setTimeout("updateArrow('"+(target.endsWith(real_move_to))+"');", 1500);
+              setTimeout("updateArrow('"+(real_move_to.endsWith(target))+"');", 1500);
           }
           
           return 'snapback';
@@ -225,8 +226,12 @@
             $('#circle_black').hide();
         }
         
-        
+//        var blackPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'b'}), 'b'); // all black moves
+//        var whitePossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'w'}), 'w'); // all white moves
+//        var allPossibleMoves = []
+//        allPossibleMoves.concat(blackPossibleMoves, whitePossibleMoves);
         var myPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true}), game.turn());
+
         var mobility = getMobilityForPieces(myPossibleMoves);
         
         var mobilityStr = "";
@@ -388,7 +393,7 @@
   function filterMovesForSide(moves, by) {
       var filteredMoves = [];
       for (var i = 0; i < moves.length; i++) {
-          if (moves[i].color == by) { // assuming our side is always white
+          if (moves[i].color == by) {
               filteredMoves.push(moves[i]);
           }
       }
