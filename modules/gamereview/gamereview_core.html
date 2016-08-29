@@ -17,41 +17,118 @@
 <body>
 
   <!-- start example HTML --->
-  <div>Memorable information: <span id="memorable"></span></div>
-  <p>Enter your move on the board in <span id="countdown-holder">X</span> seconds</p>
+ <!-- <div>Memorable information: <span id="memorable"></span></div>-->
+  <!--<p>Enter your move on the board in <span id="countdown-holder">X</span> seconds</p>-->
+
   <div style="clear:both"></div>
-  <div style="overflow:hidden">
-      <div style="width:30%;display:block;float:left">&#160;</div>
-      <div id="board" style="width:40%;margin:auto;float:left"></div>
-      <div id="progressBar" style="display:none;margin-left:20px;float:left"><div></div></div>
+  <div style="display:block;float:top;margin:auto;margin-left:95%;">
+      <img id="nextBtn" height="40" onclick="window.location = SECRETNEXT"></img>
   </div>
-  <div class="footer" style="position:relative;margin-top:30px;">
-      <div><a href="SECRETNEXT">Next Game</a></div>
-      <p>Score: <span id="score"></span></p>
-      <p>Status: <span id="status"></span></p>
+  <div style="width:5.5%;display:block;float:top;margin:auto;">
+      <img id="player-b-img" class="player" height="70"></img>
+  </div>
+  <div style="width:40%;display:block;float:top;margin:auto;margin-top:-10px;text-align:center;">
+      <label id="player-b-name" style="font-weight:bold"></label>
+  </div>
+  <div style="overflow:hidden">
+      <div id = "left-panel" style="width:30%;display:block;float:left">
+          <table class="info-table">
+              <colgroup>
+                  <col span="1" style="width: 38%;">
+                  <col span="1" style="width: 62%;">
+              </colgroup>
+          
+              <tr>
+                 <td>Game Profile </td>
+                 <td><span id="player_name"></span>
+                     
+                     <div class="tooltip">
+                         <img id="info-img" height="15"></img>
+                         <span id="info-tooltip" class="tooltiptext"></span>
+                     </div>
+                 </td>
+              </tr>
+              <tr>
+                  <td>User Move </td>
+                  <td><span id="user_move_html"></span></td>
+              </tr>
+              <tr>
+                  <td>Game Move </td>
+                  <td><span id="game_move_html"></span></td>
+              </tr>
+              <tr>
+                  <td>Plies Remaining </td>
+                  <td><span id="plies_remaining_html"></span></td>
+              </tr>
+              <tr>
+                  <td>Your Score </td>
+                  <td><span id="your_score_html"></span></td>
+              </tr>
+              <tr>
+                  <td>Status </td>
+                  <td><span id="status"></span></td>
+              </tr>
+              <tr>
+                  <td>FEN </td>
+                  <td><span id="fen"></span></td>
+              </tr>
+              <tr>
+                  <td>PGN </td>
+                  <td style="word-wrap:break-word"><span id="pgn"></span></td>
+              </tr>
+  <!--        <tr>
+              <td>Mobility for pieces: </td>
+              <td><label id="mobilityStr"></label> </td>
+          </tr>
+          <tr>
+              <td>Total no. of spaces to move to in opponent's camp: </td>
+              <td><label id="opponentSpacesCnt"></label></td>
+          </tr> -->
+          </table>
+      </div>
       
+      <div id="board" style="width:40%;margin:auto;float:left">
+
+      </div>
+      <div id="progressBar"><div></div></div>
+  </div>
+  
+  <div style="width:40%;display:block;float:top;margin:auto;z-index:2;position:relative;text-align:center;">
+      <label id="player-w-name" style="font-weight:bold"></label>
+  </div>
+  <div style="width:5.5%;display:block;float:top;margin:auto;margin-top:10px;">
+      <img id="player-w-img" class="player" height="70"></img>
+  </div>
+  <div class="footer" style="width:5.9%;margin:auto;display:block;margin-top:30px;">
+          <img id="flipBtn" height="40" onclick="flipTheBoard()"></img>
+          <img id="pauseBtn" height="40" onclick="pause()"></img>
+          
+<!--          <a href="SECRETNEXT">Next Game</a> -->
+   <!--   <p>Score: <span id="score"></span></p>
+      <p>Status: <span id="status"></span></p> -->
+      <!--
       <div id="circle_black" style="display:none"></div>
       <div id="circle_white" style="display:none"></div>
-        
-      <p>FEN: <span id="fen"></span></p>
+     -->
+ <!--     <p>FEN: <span id="fen"></span></p>
       <p>PGN: <span id="pgn"></span></p>
       <p>Mobility for pieces: <label id="mobilityStr"></label></p>
       <p>Total no. of spaces to move to in opponent's camp: <label id="opponentSpacesCnt"></label></p>
-
       <button onclick="flipTheBoard()">Flip Board</button>
-      <button id="pauseBtn" onclick="pause()">Pause</button>
+      <button id="pauseBtn" onclick="pause()">Pause</button> -->
       
   </div>
   
-  <svg id="arrow-svg" style="width:100%">
+  
+  <svg id="arrow-svg" style="width:100%;">
       
       <defs>
           <marker id="arrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
-              <path id="arrow-head-path" d="M-1,2 L-1,11 L6,6 z" style="fill:yellow;" />
+              <path id="arrow-head-path" d="M-1,2 L-1,11 L6,6 z" style="fill:chartreuse;" />
           </marker>
       </defs>
       
-      <path id="arrow-path" d="" style="stroke:yellow;stroke-width:2.25px;fill:none;marker-end: url(#arrow);"
+      <path id="arrow-path" d="" style="stroke:chartreuse;stroke-width:2.25px;fill:none;marker-end: url(#arrow);"
       />
       
   </svg>
@@ -100,7 +177,7 @@
        '',
        'SECRETPGN'];
 
-    var all_moves,moveThreshold, counter, board, game, scratch_game, fenEl, pgnEl, memEl, paused = 0, savedCall;
+    var all_moves,moveThreshold, counter, board, game, scratch_game, fenEl, pgnEl, memEl, paused = 0, savedCall, gameInfo;
     var user_input_move = 'blank';
     var fifteenTimer = 1;
     var keymove_score = "Neutral";
@@ -109,17 +186,26 @@
     var game_ended = 0;
     var plies_remaining = 0;
 
+    var gameInfo = memorable_init.split("<br/>");
+    for (i=0;i<gameInfo.length;i++) {
+        console.log(gameInfo[i]);
+    }
+
     var init = function() {
         game = new Chess();
         scratch_game = new Chess();
         statusEl = $('#status');
         fenEl = $('#fen');
         pgnEl = $('#pgn');
-        memEl = $('#memorable');
-        memEl.html(memorable_init);
-        scoreEl = $('#score');
-        
-        
+     //   memEl = $('#memorable');
+       // memEl.html(memorable_init);
+        //scoreEl = $('#score');
+        userMoveEl = $('#user_move_html');
+        gameMoveEl = $('#game_move_html');
+        pliesEl = $('#plies_remaining_html');
+        scoreEl = $('#your_score_html');
+        var player_name = gameInfo[5].substring(7).replace('"]', '').replace('"','').concat(" Vs ").concat(gameInfo[6].substring(7).replace('"]', '').replace('"',''));
+        playerNameEl = $('#player_name');
         
 //        $('#cnvsdiv').detach();
 
@@ -209,21 +295,39 @@
           keymove_score = "Neutral";
         }
         plies_remaining = all_moves.length - counter;
-        score_html = "User move: " + user_input_move + "<br/>";
-        score_html += "Game move: " + all_moves[counter-1] + "<br/>";
-        score_html +=  "Plies remaining: " + plies_remaining + "<br/>Your Score: " + your_score + "/" + total_moves;
+//        score_html = "User move: " + user_input_move + "<br/>";
+//        score_html += "Game move: " + all_moves[counter-1] + "<br/>";
+//        score_html +=  "Plies remaining: " + plies_remaining + "<br/>Your Score: " + your_score + "/" + total_moves;
+
+        user_move_html = user_input_move;
+        game_move_html = all_moves[counter-1];
+        plies_remaining_html = plies_remaining;
+        your_score_html = your_score + "/" + total_moves;
 
         statusEl.html(status);
         fenEl.html(game.fen());
         pgnEl.html(game.pgn());
-        scoreEl.html(score_html);
-        
-        if (moveColor == "Black") {
-            $('#circle_black').show();
-            $('#circle_white').hide();
-        } else {
-            $('#circle_white').show();
-            $('#circle_black').hide();
+        //scoreEl.html(score_html);
+        userMoveEl.html(user_move_html);
+        gameMoveEl.html(game_move_html);
+        pliesEl.html(plies_remaining_html);
+        scoreEl.html(your_score_html);
+        playerNameEl.html(player_name);
+
+        if (counter > moveThreshold) {
+            if (moveColor == "Black") {
+//                $('#circle_black').show();
+//                $('#circle_white').hide();
+                $('#player-w-img').stop();
+                $('#player-w-img').css({ opacity: 1.0 });
+                blink($('#player-b-img'), 'slow');
+            } else {
+                $('#player-b-img').stop();
+                $('#player-b-img').css({ opacity: 1.0 });
+//                $('#circle_white').show();
+//                $('#circle_black').hide();
+                blink($('#player-w-img'), 'slow');
+            }
         }
         
 //        var blackPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'b'}), 'b'); // all black moves
@@ -351,7 +455,7 @@
       board = ChessBoard('board', cfg);
       scratch_game.load_pgn(pgn_init.join('\n'));
       all_moves = scratch_game.history();
-      initializeArrow();
+      initializeUIComponents();
       counter = 0;
       moveThreshold = SECRETTHRESHOLD;
       makeMoveUntil();
@@ -367,22 +471,23 @@
     function pause() {
       if (paused) {
         paused = 0;
-        $("#pauseBtn").html("Pause");
+//        $("#pauseBtn").html("Pause");
+        $('#pauseBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/pause.png');
         savedCall();
         savedCall = function() {};
       }
       else
       {
         paused = 1;
-        $("#pauseBtn").html("Resume");
+//        $("#pauseBtn").html("Resume");
+        $('#pauseBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/play.png');
       }
     }
   
   function progress(timer) {
-      boardHeight = $('.chessboard-63f37').height();
-      $('#progressBar').height(boardHeight);
+      var boardHeight = $('.board-b72b1').height();
       var progressBarHeight = (boardHeight / INIT_TIMER) * (INIT_TIMER - timer);
-      $('#progressBar').find('div').animate({ height: progressBarHeight }, 500).html("<label style=\"text-align:center;color:red\">"+timer + " s</label>");
+      $('#progressBar').find('div').animate({ height: progressBarHeight }, 500).html("<label style=\"font-size:12px;font-weight:bold;text-align:center;color:black\">"+timer + "</label>");
       
       if (progressBarHeight == (boardHeight / INIT_TIMER) * INIT_TIMER) {
           setTimeout("$('#progressBar').hide();", 1000);
@@ -461,15 +566,36 @@
       return filteredMoves;
   }
   
-  function initializeArrow() {
+  function initializeUIComponents() {
+      var boardEl = $('.board-b72b1');
       var chessboardEl = $('.chessboard-63f37');
       chessboardEl.css('position', 'absolute');
       chessboardEl.css('z-index', 0);
 
+      $('#left-panel').height(boardEl.height());
+      $('#progressBar').height(boardEl.height());
+      
       $('#arrow-svg').height(chessboardEl.height());
       $('#arrow-svg').width(chessboardEl.width());
       $('#arrow-svg').appendTo($('#board'));
       $('#arrow-svg').css('z-index', -1);
+      
+      $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
+      $('#player-w-img').css({'transform': 'rotate(180deg)'});
+      
+      var player_b_name = gameInfo[5];
+      $('#player-b-name').html(player_b_name.substring(7).replace('"]', '').replace('"',''));
+      
+      var player_w_name = gameInfo[6];
+      $('#player-w-name').html(player_w_name.substring(7).replace('"]', '').replace('"',''));
+      
+      $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
+   
+      $('#info-tooltip').html(memorable_init);
+      
+      $('#flipBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/flip.png');
+      $('#pauseBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/pause.png');
+      $('#nextBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/next.png');
 
   }
   
@@ -509,14 +635,14 @@
         $('.chessboard-63f37').css("zIndex", -1);
         $('#arrow-head-path').css('fill', 'yellow');
         $('#arrow-path').css('stroke', 'yellow');
-        blink($('#arrow-path'));
-        blink($('#arrow-head-path'));
+        blink($('#arrow-path'), 'fast');
+        blink($('#arrow-head-path'), 'fast');
     }
   
-    function blink(selector){
-        $(selector).fadeOut('fast', function(){
-                            $(this).fadeIn('fast', function(){
-                                            blink(this);
+    function blink(selector, speed){
+        $(selector).fadeOut(speed, function(){
+                            $(selector).fadeIn(speed, function(){
+                                            blink(selector, speed);
                                             });
                             });
     }
