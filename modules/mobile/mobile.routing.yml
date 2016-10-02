@@ -1,0 +1,6 @@
+mobile:
+    path: '/mobile'
+    defaults:
+        _controller: 'Drupal\mobile\Controller\MobileController::mobile'
+    requirements:
+        _permission: 'access content'

@@ -1,0 +1,5 @@
+name: Mobile
+type: module
+description: 'Mobile App'
+package: Development
+core: 8.x
