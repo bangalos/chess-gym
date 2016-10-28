@@ -1,0 +1,6 @@
+/* mobility highlight */
+.highlight-mobility {
+  -webkit-box-shadow: inset 0 0 3px 3px blue;
+  -moz-box-shadow: inset 0 0 3px 3px blue;
+  box-shadow: inset 0 0 3px 3px blue;
+}
