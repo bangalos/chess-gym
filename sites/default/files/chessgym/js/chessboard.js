@@ -17,8 +17,27 @@
 //------------------------------------------------------------------------------
 var COLUMNS = 'abcdefgh'.split('');
   
+function isIPAddress(hname){
+  validIp = false;
+  ipParts = hname.split(".");
+  if(ipParts.length==4){
+    for(i=0;i<4;i++){
+  
+        theNum = parseInt(ipParts[i]);
+        if(theNum >= 0 && theNum <= 255){}
+        else{break;}
+    }
+    if(i==4)validIp=true;
+  }
+  return validIp;
+}
+  
+function isDevo(hname){
+  return hname == 'localhost' || isIPAddress(hname);
+}
+  
 function getUrlRoot() {
-    return (window.location.hostname == 'localhost') ? '/drupal' : '';
+    return isDevo(window.location.hostname) ? '/drupal' : '';
 }
 
 function validMove(move) {

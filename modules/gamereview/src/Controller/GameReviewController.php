@@ -19,7 +19,8 @@ use Drupal\Component\Utility\SafeMarkup;
  * Controller routines for Game Review pages.
  */
 class GameReviewController extends ControllerBase{
-  public function gamereview($gamedir="rudolf_spielmann", $gamefile="game_9") {
+    
+  function gamereview($gamedir="rudolf_spielmann", $gamefile="game_9", $class, $corehtml) {
     $response = new Response();
     $response->headers->set('Expires', 'Sun, 19 Nov 1978 05:00:00 GMT');
     $response->headers->set('Cache-Control', 'must-revalidate');
@@ -27,12 +28,12 @@ class GameReviewController extends ControllerBase{
 
     //TODO: Assume that the pgn filename is magically available in the following variable:
     $current_uri = \Drupal::request()->getRequestUri();
-    if (preg_match("/^(.+?)amereview\/(.+?)\/(.+?)_(.+?)$/", $current_uri, $match)) {
+    if (preg_match("/^(.+?)amereview\/$class\/(.+?)\/(.+?)_(.+?)$/", $current_uri, $match)) {
       $gamedir = $match[2];
       $gamefile = "$match[3]_$match[4]";
       $nextgamefile = "$match[3]_" . ($match[4] + 1);
       $defaultgamefile = "$match[3]_1";
-      $sitebaseuri = "$match[1]amereview/$gamedir";
+      $sitebaseuri = "$match[1]amereview/$class/$gamedir";
     }
     $pgn_file_name = "rudolf_spielmann/game_9";
     if ($gamedir != "" && $gamefile != "") {
@@ -70,7 +71,7 @@ class GameReviewController extends ControllerBase{
     $fen = 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1 b - c3 0 19';
 
     // Read actual feed from file.
-    $file_name = drupal_get_path('module', 'gamereview') . '/gamereview_core.html';
+    $file_name = drupal_get_path('module', 'gamereview') . '/' . $corehtml;
     $handle = fopen($file_name, 'r');
     $feed = fread($handle, filesize($file_name));
     fclose($handle);
@@ -84,4 +85,13 @@ class GameReviewController extends ControllerBase{
     $response->setContent($feed);
     return $response;
   }
+    
+   public function web($gamedir, $gamefile) {
+     return $this->gamereview($gamedir, $gamefile, "web", "gamereview_core_web.html");
+   }
+    
+   public function mobile($gamedir, $gamefile) {
+     return $this->gamereview($gamedir, $gamefile, "mobile", "gamereview_core_mobile.html");
+   }
 }
+
