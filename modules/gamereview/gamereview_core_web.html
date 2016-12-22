@@ -23,7 +23,9 @@
   <div style="clear:both"></div>
   
   <div id="nextBtnDiv">
-      <img id="nextBtn" height="40" onclick="window.location = SECRETNEXT"></img>
+      <a href="SECRETNEXT">
+          <img id="nextBtn" height="40" onclick="window.location = SECRETNEXT"></img>
+      </a>
   </div>
   
   <div id="player-b-img-div">
@@ -212,8 +214,11 @@
     var plies_remaining = 0;
 
     var gameInfo = memorable_init.split("<br/>");
+    var map = {};
+    
     for (i=0;i<gameInfo.length;i++) {
-        console.log(gameInfo[i]);
+        var strsplt = gameInfo[i].split("\"");
+        map[strsplt[0].replace('[', '').trim()] = strsplt[1];
     }
 
     var init = function() {
@@ -229,7 +234,7 @@
         gameMoveEl = $('#game_move_html');
         pliesEl = $('#plies_remaining_html');
         scoreEl = $('#your_score_html');
-        var player_name = gameInfo[5].substring(7).replace('"]', '').replace('"','').concat(" Vs ").concat(gameInfo[6].substring(7).replace('"]', '').replace('"',''));
+        var player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
         playerNameEl = $('#player_name');
         
 //        $('#cnvsdiv').detach();
@@ -486,10 +491,23 @@
       makeMoveUntil();
       updateStatus();
     }; // end init()
-
+  
+    // Function to get value of a key from a map
+    function getKey(k) {
+        return map[k];
+    }
+  
     // Function to Flip the board
     function flipTheBoard() {
          board.orientation('flip');
+         
+         var divOneText = $('#player-w-name').html();
+         var divTwoText = $('#player-b-name').html();
+         
+         if (divOneText != '' && divTwoText != '') {
+             $('#player-w-name').html(divTwoText);
+             $('#player-b-name').html(divOneText);
+         }
     }
 
     // Function to pause or resume the game
@@ -608,11 +626,11 @@
       $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
       $('#player-w-img').css({'transform': 'rotate(180deg)'});
       
-      var player_b_name = gameInfo[5];
-      $('#player-b-name').html(player_b_name.substring(7).replace('"]', '').replace('"',''));
+      var player_w_name = getKey('White');
+      $('#player-w-name').html(player_w_name);
       
-      var player_w_name = gameInfo[6];
-      $('#player-w-name').html(player_w_name.substring(7).replace('"]', '').replace('"',''));
+      var player_b_name = getKey('Black');
+      $('#player-b-name').html(player_b_name);
       
       $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
    

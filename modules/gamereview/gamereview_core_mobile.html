@@ -112,12 +112,14 @@
                     <img id="pauseBtn" style="height:60px;margin-left:5%" onclick="pause()"></img>
                 </div>
                 <div id="control-pnl-right">
+                    <a href="SECRETNEXT">
                     <img id="nextBtn" style="height:60px;" onclick="window.location = SECRETNEXT"></img>
+                    </a>
                 </div>
             <!--<div id="nextBtnDiv">
                 <img id="nextBtn" style="height:60px" onclick="window.location = SECRETNEXT"></img>
-            </div>-->
-            <!--          <a href="SECRETNEXT">Next Game</a> -->
+            </div>
+            <a href="SECRETNEXT">Next Game</a> -->
             <!--   <p>Score: <span id="score"></span></p>
              <p>Status: <span id="status"></span></p> -->
             <!--
@@ -221,8 +223,11 @@
                             var plies_remaining = 0;
                             
                             var gameInfo = memorable_init.split("<br/>");
+                            var map = {};
+                            
                             for (i=0;i<gameInfo.length;i++) {
-                                console.log(gameInfo[i]);
+                                var strsplt = gameInfo[i].split("\"");
+                                map[strsplt[0].replace('[', '').trim()] = strsplt[1];
                             }
         
         var init = function() {
@@ -238,7 +243,7 @@
             gameMoveEl = $('#game_move_html');
             pliesEl = $('#plies_remaining_html');
             scoreEl = $('#your_score_html');
-            var player_name = gameInfo[5].substring(7).replace('"]', '').replace('"','').concat(" Vs ").concat(gameInfo[6].substring(7).replace('"]', '').replace('"',''));
+            var player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
             playerNameEl = $('#player_name');
             
             //        $('#cnvsdiv').detach();
@@ -350,16 +355,12 @@
                 
                 if (counter > moveThreshold) {
                     if (moveColor == "Black") {
-                        //                $('#circle_black').show();
-                        //                $('#circle_white').hide();
                         $('#player-w-img').stop();
                         $('#player-w-img').css({ opacity: 1.0 });
                         blink($('#player-b-img'), 'slow');
                     } else {
                         $('#player-b-img').stop();
                         $('#player-b-img').css({ opacity: 1.0 });
-                        //                $('#circle_white').show();
-                        //                $('#circle_black').hide();
                         blink($('#player-w-img'), 'slow');
                     }
                 }
@@ -496,9 +497,49 @@
             updateStatus();
         }; // end init()
         
+        
+        // Function to get value of a key from a map
+        function getKey(k) {
+            return map[k];
+        }
+        
         // Function to Flip the board
         function flipTheBoard() {
+            
+            // Filp the board
             board.orientation('flip');
+            
+            // Flip player names
+            var divOneText = $('#player-w-name').html();
+            var divTwoText = $('#player-b-name').html();
+            
+            if (divOneText != '' && divTwoText != '') {
+                $('#player-w-name').html(divTwoText);
+                $('#player-b-name').html(divOneText);
+            }
+            
+            // Flip player image
+         /*   var divOneImg = $('#player-w-img').html();
+            var divTwoImg = $('#player-b-img').html();
+            
+            if (divOneImg != '' && divTwoImg != '') {
+                $('#player-w-img').html(divTwoImg);
+                $('#player-b-img').html(divOneImg);
+            }*/
+            
+            if (counter > moveThreshold) {
+                console.log(moveColor);
+                if (moveColor == "Black") {
+                    $('#player-w-img').stop();
+                    $('#player-w-img').css({ opacity: 1.0 });
+                    blink($('#player-b-img'), 'slow');
+                } else {
+                    $('#player-b-img').stop();
+                    $('#player-b-img').css({ opacity: 1.0 });
+                    blink($('#player-w-img'), 'slow');
+                }
+            }
+            
         }
         
         // TODO: remove
@@ -622,11 +663,11 @@
             $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
             $('#player-w-img').css({'transform': 'rotate(180deg)'});
             
-            var player_b_name = gameInfo[5];
-            $('#player-b-name').html(player_b_name.substring(7).replace('"]', '').replace('"',''));
+            var player_w_name = getKey('White');
+            $('#player-w-name').html(player_w_name);
             
-            var player_w_name = gameInfo[6];
-            $('#player-w-name').html(player_w_name.substring(7).replace('"]', '').replace('"',''));
+            var player_b_name = getKey('Black');
+            $('#player-b-name').html(player_b_name);
             
             $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
             
