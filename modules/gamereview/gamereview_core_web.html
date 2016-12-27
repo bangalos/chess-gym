@@ -204,7 +204,8 @@
        '',
        'SECRETPGN'];
 
-    var all_moves,moveThreshold, counter, board, game, scratch_game, fenEl, pgnEl, memEl, paused = 0, savedCall, gameInfo;
+    var all_moves, moveThreshold, counter, board, game, scratch_game, movePov;
+    var fenEl, pgnEl, memEl, paused = 0, savedCall, gameInfo, moveColor;
     var user_input_move = 'blank';
     var fifteenTimer = 1;
     var keymove_score = "Neutral";
@@ -219,6 +220,26 @@
     for (i=0;i<gameInfo.length;i++) {
         var strsplt = gameInfo[i].split("\"");
         map[strsplt[0].replace('[', '').trim()] = strsplt[1];
+    }
+  
+    var playerNameElementMap = {}, playerImgElementMap = {};
+  
+    function blinkPlayerImage() {
+        if (counter > moveThreshold) {
+            if (moveColor == "Black") {
+                //                $('#circle_black').show();
+                //                $('#circle_white').hide();
+                $(playerImgElementMap['w']).stop();
+                $(playerImgElementMap['w']).css({ opacity: 1.0 });
+                blink($(playerImgElementMap['b']), 'slow');
+            } else {
+                $(playerImgElementMap['b']).stop();
+                $(playerImgElementMap['b']).css({ opacity: 1.0 });
+                //                $('#circle_white').show();
+                //                $('#circle_black').hide();
+                blink($(playerImgElementMap['w']), 'slow');
+            }
+        }
     }
 
     var init = function() {
@@ -236,6 +257,11 @@
         scoreEl = $('#your_score_html');
         var player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
         playerNameEl = $('#player_name');
+        
+        playerNameElementMap = {'b' : '#player-b-name', 'w' : '#player-w-name'};
+        playerImgElementMap = {'b' : '#player-b-img', 'w' : '#player-w-img'};
+        
+        moveColor = movePov;
         
 //        $('#cnvsdiv').detach();
 
@@ -286,9 +312,10 @@
       var updateStatus = function() {
         var status = '';
 
-        var moveColor = 'White';
         if (game.turn() === 'b') {
-          moveColor = 'Black';
+            moveColor = 'Black';
+        } else {
+            moveColor = 'White';
         }
 
         // checkmate?
@@ -344,22 +371,8 @@
         scoreEl.html(your_score_html);
         playerNameEl.html(player_name);
 
-        if (counter > moveThreshold) {
-            if (moveColor == "Black") {
-//                $('#circle_black').show();
-//                $('#circle_white').hide();
-                $('#player-w-img').stop();
-                $('#player-w-img').css({ opacity: 1.0 });
-                blink($('#player-b-img'), 'slow');
-            } else {
-                $('#player-b-img').stop();
-                $('#player-b-img').css({ opacity: 1.0 });
-//                $('#circle_white').show();
-//                $('#circle_black').hide();
-                blink($('#player-w-img'), 'slow');
-            }
-        }
-        
+        blinkPlayerImage();
+
 //        var blackPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'b'}), 'b'); // all black moves
 //        var whitePossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'w'}), 'w'); // all white moves
 //        var allPossibleMoves = []
@@ -389,7 +402,8 @@
         position: 'start',
         onDragStart: onDragStart,
         onDrop: onDrop,
-        onSnapEnd: onSnapEnd
+        onSnapEnd: onSnapEnd,
+        orientation: movePov
       };
 
       function highlightLastMove(move) {
@@ -482,6 +496,8 @@
         }
 
       }
+      
+     // movePov = SECRETPOV;
       board = ChessBoard('board', cfg);
       scratch_game.load_pgn(pgn_init.join('\n'));
       all_moves = scratch_game.history();
@@ -497,17 +513,31 @@
         return map[k];
     }
   
+    function flipPlayerInfoMap(playerMap) {
+        var player_b_elem = playerMap['b'];
+        playerMap['b'] = playerMap['w'];
+        playerMap['w'] = player_b_elem;
+    }
+  
     // Function to Flip the board
     function flipTheBoard() {
          board.orientation('flip');
          
-         var divOneText = $('#player-w-name').html();
-         var divTwoText = $('#player-b-name').html();
+    //     switchCSS('#player-w-name', '#player-b-name');
+    //     switchCSS('#player-w-img', '#player-b-img');
+        // switchCSS($('#player-w-name'), $('#player-w-name'));
          
-         if (divOneText != '' && divTwoText != '') {
-             $('#player-w-name').html(divTwoText);
-             $('#player-b-name').html(divOneText);
-         }
+         //var divWText = $(playerNameElementMap['w']).html();
+         //var divBText = $(playerNameElementMap['b']).html();
+         
+         //$(playerNameElementMap['w']).html(divBText);
+         //$(playerNameElementMap['b']).html(divWText);
+         
+         flipPlayerInfoMap(playerNameElementMap);
+         flipPlayerInfoMap(playerImgElementMap);
+         
+         initializePlayerNames();
+         blinkPlayerImage();
     }
 
     // Function to pause or resume the game
@@ -609,6 +639,14 @@
       return filteredMoves;
   }
   
+  function initializePlayerNames() {
+      var player_w_name = getKey('White');
+      $(playerNameElementMap['w']).html(player_w_name);
+      
+      var player_b_name = getKey('Black');
+      $(playerNameElementMap['b']).html(player_b_name);
+  }
+  
   function initializeUIComponents() {
       var boardEl = $('.board-b72b1');
       var chessboardEl = $('.chessboard-63f37');
@@ -624,13 +662,9 @@
       $('#arrow-svg').css('z-index', -1);
       
       $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
-      $('#player-w-img').css({'transform': 'rotate(180deg)'});
+      $(playerImgElementMap['w']).css({'transform': 'rotate(180deg)'});
       
-      var player_w_name = getKey('White');
-      $('#player-w-name').html(player_w_name);
-      
-      var player_b_name = getKey('Black');
-      $('#player-b-name').html(player_b_name);
+      initializePlayerNames();
       
       $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
    

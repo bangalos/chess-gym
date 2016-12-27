@@ -213,38 +213,64 @@
                             '',
                             'SECRETPGN'];
                             
-                            var all_moves,moveThreshold, counter, board, game, scratch_game, fenEl, pgnEl, memEl, paused = 0, savedCall, gameInfo;
-                            var user_input_move = 'blank';
-                            var fifteenTimer = 1;
-                            var keymove_score = "Neutral";
-                            var your_score= 0;
-                            var total_moves = 0;
-                            var game_ended = 0;
-                            var plies_remaining = 0;
+            var all_moves,moveThreshold, counter, board, game, scratch_game;
+            var fenEl, pgnEl, memEl, paused = 0, savedCall, gameInfo, moveColor;
+            var user_input_move = 'blank';
+            var fifteenTimer = 1;
+            var keymove_score = "Neutral";
+            var your_score= 0;
+            var total_moves = 0;
+            var game_ended = 0;
+            var plies_remaining = 0;
                             
-                            var gameInfo = memorable_init.split("<br/>");
-                            var map = {};
+            var gameInfo = memorable_init.split("<br/>");
+            var map = {};
                             
-                            for (i=0;i<gameInfo.length;i++) {
-                                var strsplt = gameInfo[i].split("\"");
-                                map[strsplt[0].replace('[', '').trim()] = strsplt[1];
-                            }
+            for (i=0;i<gameInfo.length;i++) {
+                var strsplt = gameInfo[i].split("\"");
+                map[strsplt[0].replace('[', '').trim()] = strsplt[1];
+            }
         
-        var init = function() {
-            game = new Chess();
-            scratch_game = new Chess();
-            statusEl = $('#status');
-            fenEl = $('#fen');
-            pgnEl = $('#pgn');
-            //   memEl = $('#memorable');
-            // memEl.html(memorable_init);
-            //scoreEl = $('#score');
-            userMoveEl = $('#user_move_html');
-            gameMoveEl = $('#game_move_html');
-            pliesEl = $('#plies_remaining_html');
-            scoreEl = $('#your_score_html');
-            var player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
-            playerNameEl = $('#player_name');
+            var playerNameElementMap = {}, playerImgElementMap = {};
+            
+            function blinkPlayerImage() {
+                if (counter > moveThreshold) {
+                    if (moveColor == "Black") {
+                        //                $('#circle_black').show();
+                        //                $('#circle_white').hide();
+                        $(playerImgElementMap['w']).stop();
+                        $(playerImgElementMap['w']).css({ opacity: 1.0 });
+                        blink($(playerImgElementMap['b']), 'slow');
+                    } else {
+                        $(playerImgElementMap['b']).stop();
+                        $(playerImgElementMap['b']).css({ opacity: 1.0 });
+                        //                $('#circle_white').show();
+                        //                $('#circle_black').hide();
+                        blink($(playerImgElementMap['w']), 'slow');
+                    }
+                }
+            }
+        
+            var init = function() {
+                game = new Chess();
+                scratch_game = new Chess();
+                statusEl = $('#status');
+                fenEl = $('#fen');
+                pgnEl = $('#pgn');
+                //   memEl = $('#memorable');
+                // memEl.html(memorable_init);
+                //scoreEl = $('#score');
+                userMoveEl = $('#user_move_html');
+                gameMoveEl = $('#game_move_html');
+                pliesEl = $('#plies_remaining_html');
+                scoreEl = $('#your_score_html');
+                var player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
+                playerNameEl = $('#player_name');
+            
+                playerNameElementMap = {'b' : '#player-b-name', 'w' : '#player-w-name'};
+                playerImgElementMap = {'b' : '#player-b-img', 'w' : '#player-w-img'};
+            
+                moveColor = 'White';
             
             //        $('#cnvsdiv').detach();
             
@@ -295,9 +321,10 @@
             var updateStatus = function() {
                 var status = '';
                 
-                var moveColor = 'White';
                 if (game.turn() === 'b') {
                     moveColor = 'Black';
+                } else {
+                    moveColor = 'White';
                 }
                 
                 // checkmate?
@@ -353,17 +380,7 @@
                 scoreEl.html(your_score_html);
                 playerNameEl.html(player_name);
                 
-                if (counter > moveThreshold) {
-                    if (moveColor == "Black") {
-                        $('#player-w-img').stop();
-                        $('#player-w-img').css({ opacity: 1.0 });
-                        blink($('#player-b-img'), 'slow');
-                    } else {
-                        $('#player-b-img').stop();
-                        $('#player-b-img').css({ opacity: 1.0 });
-                        blink($('#player-w-img'), 'slow');
-                    }
-                }
+                blinkPlayerImage();
                 
                 //        var blackPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'b'}), 'b'); // all black moves
                 //        var whitePossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'w'}), 'w'); // all white moves
@@ -503,44 +520,33 @@
             return map[k];
         }
         
+        function flipPlayerInfoMap(playerMap) {
+            var player_b_elem = playerMap['b'];
+            playerMap['b'] = playerMap['w'];
+            playerMap['w'] = player_b_elem;
+        }
+        
         // Function to Flip the board
         function flipTheBoard() {
-            
-            // Filp the board
             board.orientation('flip');
             
-            // Flip player names
-            var divOneText = $('#player-w-name').html();
-            var divTwoText = $('#player-b-name').html();
+            //     switchCSS('#player-w-name', '#player-b-name');
+            //     switchCSS('#player-w-img', '#player-b-img');
+            // switchCSS($('#player-w-name'), $('#player-w-name'));
             
-            if (divOneText != '' && divTwoText != '') {
-                $('#player-w-name').html(divTwoText);
-                $('#player-b-name').html(divOneText);
-            }
+            //var divWText = $(playerNameElementMap['w']).html();
+            //var divBText = $(playerNameElementMap['b']).html();
             
-            // Flip player image
-         /*   var divOneImg = $('#player-w-img').html();
-            var divTwoImg = $('#player-b-img').html();
+            //$(playerNameElementMap['w']).html(divBText);
+            //$(playerNameElementMap['b']).html(divWText);
             
-            if (divOneImg != '' && divTwoImg != '') {
-                $('#player-w-img').html(divTwoImg);
-                $('#player-b-img').html(divOneImg);
-            }*/
+            flipPlayerInfoMap(playerNameElementMap);
+            flipPlayerInfoMap(playerImgElementMap);
             
-            if (counter > moveThreshold) {
-                console.log(moveColor);
-                if (moveColor == "Black") {
-                    $('#player-w-img').stop();
-                    $('#player-w-img').css({ opacity: 1.0 });
-                    blink($('#player-b-img'), 'slow');
-                } else {
-                    $('#player-b-img').stop();
-                    $('#player-b-img').css({ opacity: 1.0 });
-                    blink($('#player-w-img'), 'slow');
-                }
-            }
-            
+            initializePlayerNames();
+            blinkPlayerImage();
         }
+
         
         // TODO: remove
         function refresh() {
@@ -646,6 +652,14 @@
             return filteredMoves;
         }
         
+        function initializePlayerNames() {
+            var player_w_name = getKey('White');
+            $(playerNameElementMap['w']).html(player_w_name);
+            
+            var player_b_name = getKey('Black');
+            $(playerNameElementMap['b']).html(player_b_name);
+        }
+        
         function initializeUIComponents() {
             var boardEl = $('.board-b72b1');
             var chessboardEl = $('.chessboard-63f37');
@@ -661,13 +675,9 @@
             $('#arrow-svg').css('z-index', -1);
             
             $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
-            $('#player-w-img').css({'transform': 'rotate(180deg)'});
+            $(playerImgElementMap['w']).css({'transform': 'rotate(180deg)'});
             
-            var player_w_name = getKey('White');
-            $('#player-w-name').html(player_w_name);
-            
-            var player_b_name = getKey('Black');
-            $('#player-b-name').html(player_b_name);
+            initializePlayerNames();
             
             $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
             
