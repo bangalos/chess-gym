@@ -22,11 +22,11 @@
         
         <div style="clear:both"></div>
         
-        <div id="nextBtnDiv">
+    <!--    <div id="nextBtnDiv">
             <a href="SECRETNEXT">
                 <img id="nextBtn" height="40" onclick="window.location = SECRETNEXT"></img>
             </a>
-        </div>
+        </div> -->
         
         <div id="player-x-img-div">
             <img id="player-x-img" class="player" height="70"></img>
@@ -44,7 +44,7 @@
                             <col span="1" style="width: 62%;">
                                 </colgroup>
                     
-                    <tr>
+                   <!-- <tr>
                         <td>Game Profile </td>
                         <td><span id="player_name"></span>
                             
@@ -53,35 +53,41 @@
                                 <span id="info-tooltip" class="tooltiptext"></span>
                             </div>
                         </td>
-                    </tr>
-                    <tr>
+                    </tr> -->
+                   <tr>
+                       <td>Status </td>
+                       <td><span id="status"></span></td>
+                   </tr>
+            <!--        <tr>
                         <td>User Move </td>
                         <td><span id="user_move_html"></span></td>
                     </tr>
                     <tr>
                         <td>Game Move </td>
                         <td><span id="game_move_html"></span></td>
-                    </tr>
+                    </tr>-->
                     <tr>
-                        <td>Plies Remaining </td>
+                        <td>No. of moves remaining </td>
                         <td><span id="plies_remaining_html"></span></td>
                     </tr>
-                    <tr>
+                    <tr class="postgame">
                         <td>Your Score </td>
                         <td><span id="your_score_html"></span></td>
                     </tr>
-                    <tr>
-                        <td>Status </td>
-                        <td><span id="status"></span></td>
+                    
+                    <tr class="postgame">
+                        <td>Next Game </td>
+                        <td><a href="SECRETNEXT">Next Game</a></td>
                     </tr>
-                    <tr>
+                    
+                   <!-- <tr>
                         <td>FEN </td>
                         <td><span id="fen"></span></td>
                     </tr>
                     <tr>
                         <td>PGN </td>
                         <td style="word-wrap:break-word"><span id="pgn"></span></td>
-                    </tr>
+                    </tr>-->
                     <!--        <tr>
                      <td>Mobility for pieces: </td>
                      <td><label id="mobilityStr"></label> </td>
@@ -91,6 +97,7 @@
                      <td><label id="opponentSpacesCnt"></label></td>
                      </tr> -->
                 </table>
+                
             </div>
             
             <div id="board">

@@ -132,6 +132,12 @@ var init = function(memo_init, pgn_init, threshold, pov) {
     };
     var updateStatus = function() {
         $('#progressBar').hide();
+        
+        if(game_ended == 0) {
+            $('.postgame').hide();
+        } else {
+            $('.postgame').show();
+        }
         resetPlayerImage();
         
         var status = '';
@@ -175,16 +181,18 @@ var init = function(memo_init, pgn_init, threshold, pov) {
         //        score_html +=  "Plies remaining: " + plies_remaining + "<br/>Your Score: " + your_score + "/" + total_moves;
         user_move_html = user_input_move;
         game_move_html = all_moves[counter-1];
-        plies_remaining_html = plies_remaining;
+        plies_remaining_html = Math.floor((plies_remaining+1)/2);
         your_score_html = your_score + "/" + total_moves;
         statusEl.html(status);
         fenEl.html(game.fen());
+        console.log(game.pgn());
         pgnEl.html(game.pgn());
         userMoveEl.html(user_move_html);
         gameMoveEl.html(game_move_html);
         pliesEl.html(plies_remaining_html);
         scoreEl.html(your_score_html);
         playerNameEl.html(player_name);
+        console.log(game_ended);
         
         //        var blackPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'b'}), 'b'); // all black moves
         //        var whitePossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'w'}), 'w'); // all white moves
@@ -235,8 +243,8 @@ var init = function(memo_init, pgn_init, threshold, pov) {
                 var moveInfo = game.move(all_moves[counter]);
                 highlightLastMove(moveInfo);
                 board.position(game.fen());
-                console.log(counter);
-                console.log(moveThreshold);
+               // console.log(counter);
+                //console.log(moveThreshold);
                 counter++;
                 if (counter < moveThreshold) {
                     setTimeout(makeMoveUntil, 1000);
@@ -289,7 +297,7 @@ var init = function(memo_init, pgn_init, threshold, pov) {
                 board.position(game.fen());
                 counter++;
                 //updateStatus();
-                if (counter+1 < all_moves.length) {
+                if (counter < all_moves.length) {
                     //resetProgress();
                     updateStatus();
                     setTimeout(interactiveMove, 3000);
@@ -300,7 +308,7 @@ var init = function(memo_init, pgn_init, threshold, pov) {
                 }
             } else {
                 if (fifteenTimer > 0) {
-                    if (counter+1 >= all_moves.length) {
+                    if (counter >= all_moves.length) {
                         game_ended = 1;
                         //resetProgress();
                         updateStatus();
@@ -314,7 +322,7 @@ var init = function(memo_init, pgn_init, threshold, pov) {
                     board.position(game.fen());
                     counter++;
                     keymove_score = "Fail";
-                    if (counter+1 >= all_moves.length) {
+                    if (counter >= all_moves.length) {
                         game_ended = 1;
                         //resetProgress();
                         updateStatus();
@@ -339,7 +347,7 @@ var init = function(memo_init, pgn_init, threshold, pov) {
     //game.load_pgn(pgn.join('\n'));
     all_moves = scratch_game.history();
     //all_moves = game.history();
-    console.log(all_moves);
+   // console.log(all_moves);
     initializeUIComponents();
     counter = 0;
     makeMoveUntil();
