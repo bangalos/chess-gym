@@ -28,12 +28,12 @@
             </a>
         </div>
         
-        <div id="player-b-img-div">
-            <img id="player-b-img" class="player" height="70"></img>
+        <div id="player-x-img-div">
+            <img id="player-x-img" class="player" height="70"></img>
         </div>
         
-        <div id="player-b-name-position">
-            <label id="player-b-name" style="font-weight:bold"></label>
+        <div id="player-x-name-position">
+            <label id="player-x-name" style="font-weight:bold"></label>
         </div>
         
         <div style="overflow:hidden">
@@ -99,12 +99,12 @@
             <div id="progressBar"><div></div></div>
         </div>
         
-        <div id= "player-w-name-position">
-            <label id="player-w-name" style="font-weight:bold"></label>
+        <div id= "player-y-name-position">
+            <label id="player-y-name" style="font-weight:bold"></label>
         </div>
         
-        <div id="player-w-img-div">
-            <img id="player-w-img" class="player" height="70"></img>
+        <div id="player-y-img-div">
+            <img id="player-y-img" class="player" height="70"></img>
         </div>
         
         <div class="footer">
@@ -203,19 +203,18 @@
             var pgn_init = ['[Event "Chess Gym Game Review"]',
                             '',
                             'SECRETPGN'];
-                            var threshold = 'SECRETTHRESHOLD';
-                            
-                            function progress(timer) {
-                                var boardHeight = $('.board-b72b1').height();
-                                var progressBarHeight = (boardHeight / INIT_TIMER) * (INIT_TIMER - timer);
-                                $('#progressBar').find('div').animate({ height: progressBarHeight }, 500).html("<label style=\"font-size:12px;font- weight:bold;text-align:center;color:black\">"+timer + "</label>");
+            var threshold = 'SECRETTHRESHOLD';
+            var pov = 'SECRETPOV';
+            
+            function progress(timer) {
+                var boardHeight = $('.board-b72b1').height();
+                var progressBarHeight = (boardHeight / INIT_TIMER) * (INIT_TIMER - timer);
+                $('#progressBar').find('div').animate({ height: progressBarHeight }, 500).html("<label style=\"font-size:12px;font- weight:bold;text-align:center;color:black\">"+timer + "</label>");
                                 
-                                if (progressBarHeight == (boardHeight / INIT_TIMER) * INIT_TIMER) {
-                                    setTimeout("$('#progressBar').hide();", 1000);
-                                }
-                            }
-        
-        
+                if (progressBarHeight == (boardHeight / INIT_TIMER) * INIT_TIMER) {
+                    setTimeout("$('#progressBar').hide();", 1000);
+                }
+            }
         
         function initializeUIComponents() {
             var boardEl = $('.board-b72b1');
@@ -232,7 +231,7 @@
             $('#arrow-svg').css('z-index', -1);
             
             $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
-            $(playerImgElementMap['w']).css({'transform': 'rotate(180deg)'});
+            $('#player-y-img').css({'transform': 'rotate(180deg)'});
             
             initializePlayerNames();
             
@@ -250,7 +249,7 @@
         (function() {
          var nTimer = setInterval(function() {
                                   if (window.jQuery) {
-                                  $(document).ready(function() { init(memorable_init, pgn_init, threshold) });
+                                  $(document).ready(function() { init(memorable_init, pgn_init, threshold, pov) });
                                   clearInterval(nTimer);
                                   }
                                   }, 100);

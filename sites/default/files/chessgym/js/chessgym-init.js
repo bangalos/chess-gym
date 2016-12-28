@@ -27,8 +27,9 @@ var map = {};
 var playerNameElementMap = {}, playerImgElementMap = {};
 
 function blinkPlayerImage() {
-    if (counter > moveThreshold) {
-        if (moveColor == "Black") {
+    resetPlayerImage();
+    if (counter >= moveThreshold && moveColor == movePov) {
+        if (movePov == "Black") {
             //                $('#circle_black').show();
             //                $('#circle_white').hide();
             $(playerImgElementMap['w']).stop();
@@ -43,21 +44,20 @@ function blinkPlayerImage() {
         }
     }
 }
-var init = function(memo_init, pgn_init, threshold) {
+
+function resetPlayerImage() {
+    $(playerImgElementMap['w']).stop();
+    $(playerImgElementMap['w']).css({ opacity: 1.0 });
+    $(playerImgElementMap['b']).stop();
+    $(playerImgElementMap['b']).css({ opacity: 1.0 });
+}
+
+var init = function(memo_init, pgn_init, threshold, pov) {
     memo = memo_init;
     pgn = pgn_init;
-    game = new Chess();
-    scratch_game = new Chess();
-    statusEl = $('#status');
-    fenEl = $('#fen');
-    pgnEl = $('#pgn');
-    //   memEl = $('#memorable');
-    // memEl.html(memorable_init);
-    //scoreEl = $('#score');
-    userMoveEl = $('#user_move_html');
-    gameMoveEl = $('#game_move_html');
-    pliesEl = $('#plies_remaining_html');
-    scoreEl = $('#your_score_html');
+    moveThreshold = threshold;
+    movePov = pov;
+    moveColor = movePov;
     
     var gameInfo = memo.split("<br/>");
     for (i=0;i<gameInfo.length;i++) {
@@ -65,13 +65,30 @@ var init = function(memo_init, pgn_init, threshold) {
         map[strsplt[0].replace('[', '').trim()] = strsplt[1];
     }
     
-    var player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
+    if (movePov == 'White') {
+        playerNameElementMap = {'b' : '#player-x-name', 'w' : '#player-y-name'};
+        playerImgElementMap = {'b' : '#player-x-img', 'w' : '#player-y-img'};
+    } else {
+        playerNameElementMap = {'w' : '#player-x-name', 'b' : '#player-y-name'};
+        playerImgElementMap = {'w' : '#player-x-img', 'b' : '#player-y-img'};
+    }
+
+    scratch_game = new Chess(getKey('FEN'));
+    statusEl = $('#status');
+    fenEl = $('#fen');
+    pgnEl = $('#pgn');
+    userMoveEl = $('#user_move_html');
+    gameMoveEl = $('#game_move_html');
+    pliesEl = $('#plies_remaining_html');
+    scoreEl = $('#your_score_html');
+    
+    game = new Chess(getKey('FEN'));
+    var player_name;
+    if (getKey('White') != null && getKey('Black') != null) {
+        player_name = getKey('White').concat(" Vs ").concat(getKey('Black'));
+    }
+    
     playerNameEl = $('#player_name');
-    
-    playerNameElementMap = {'b' : '#player-b-name', 'w' : '#player-w-name'};
-    playerImgElementMap = {'b' : '#player-b-img', 'w' : '#player-w-img'};
-    
-    moveColor = movePov;
     
     //        $('#cnvsdiv').detach();
     // do not pick up pieces if the game is over
@@ -114,12 +131,16 @@ var init = function(memo_init, pgn_init, threshold) {
         board.position(game.fen());
     };
     var updateStatus = function() {
+        $('#progressBar').hide();
+        resetPlayerImage();
+        
         var status = '';
         if (game.turn() === 'b') {
             moveColor = 'Black';
         } else {
             moveColor = 'White';
         }
+        
         // checkmate?
         if (game.in_checkmate() === true) {
             status = 'Game over, ' + moveColor + ' is in checkmate.';
@@ -159,13 +180,12 @@ var init = function(memo_init, pgn_init, threshold) {
         statusEl.html(status);
         fenEl.html(game.fen());
         pgnEl.html(game.pgn());
-        //scoreEl.html(score_html);
         userMoveEl.html(user_move_html);
         gameMoveEl.html(game_move_html);
         pliesEl.html(plies_remaining_html);
         scoreEl.html(your_score_html);
         playerNameEl.html(player_name);
-        blinkPlayerImage();
+        
         //        var blackPossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'b'}), 'b'); // all black moves
         //        var whitePossibleMoves = filterMovesForSide(game.moves({legal: true, verbose: true, turn: 'w'}), 'w'); // all white moves
         //        var allPossibleMoves = []
@@ -187,31 +207,42 @@ var init = function(memo_init, pgn_init, threshold) {
         var movesByUniqueSpaces = filterMovesOnUniqueSpaces(myPossibleMoves);
         var opponentSpaces = filterMovesInOpponentCamp(movesByUniqueSpaces);
         $("#opponentSpacesCnt").html(opponentSpaces.length);
+        
     };
     var cfg = {
     draggable: true,
-    position: 'start',
+    position: getKey('FEN'),
     onDragStart: onDragStart,
     onDrop: onDrop,
     onSnapEnd: onSnapEnd,
     orientation: movePov
     };
     function highlightLastMove(move) {
-        $(':not([data-square=""])').removeClass("highlight-last-move");
-        $('*[data-square=' + move.from + ']').addClass("highlight-last-move");
-        $('*[data-square=' + move.to + ']').addClass("highlight-last-move");
+        
+        if(move != null) {
+            $(':not([data-square=""])').removeClass("highlight-last-move");
+            $('*[data-square=' + move.from + ']').addClass("highlight-last-move");
+            $('*[data-square=' + move.to + ']').addClass("highlight-last-move");
+        }
     }
     
     var makeMoveUntil = function () {
         if (!paused) {
-            var moveInfo = game.move(all_moves[counter]);
-            highlightLastMove(moveInfo);
-            board.position(game.fen());
-            counter++;
-            if (counter < moveThreshold) {
-                setTimeout(makeMoveUntil, 1000);
-            } else {
+            
+            if (moveThreshold == 0 && counter == 0) {
                 setTimeout(interactiveMove, 1000);
+            } else {
+                var moveInfo = game.move(all_moves[counter]);
+                highlightLastMove(moveInfo);
+                board.position(game.fen());
+                console.log(counter);
+                console.log(moveThreshold);
+                counter++;
+                if (counter < moveThreshold) {
+                    setTimeout(makeMoveUntil, 1000);
+                } else {
+                    setTimeout(interactiveMove, 1000);
+                }
             }
             updateStatus();
         } else {
@@ -220,14 +251,19 @@ var init = function(memo_init, pgn_init, threshold) {
     }
     var interactiveMove = function () {
         if (!paused) {
-            var moveInfo = game.move(all_moves[counter]);
-            highlightLastMove(moveInfo);
-            board.position(game.fen());
-            counter++;
-            updateStatus();
+          //  blinkPlayerImage();
+            if (counter > 0) {
+                //blinkPlayerImage();
+                var moveInfo = game.move(all_moves[counter]);
+                highlightLastMove(moveInfo);
+                board.position(game.fen());
+                counter++;
+                updateStatus();
+            }
             fifteenTimer = INIT_TIMER;
             keymove_score = "Neutral";
-            $('#progressBar').show();
+            
+            setTimeout(function() { blinkPlayerImage(); $('#progressBar').show(); }, 500);
             progress(fifteenTimer);
             setTimeout(checkEverySecond, 1000);
             $("#countdown-holder").html(fifteenTimer);
@@ -237,7 +273,6 @@ var init = function(memo_init, pgn_init, threshold) {
         }
     }
     var checkEverySecond = function (){
-        
         if (!paused) {
             fifteenTimer--;
             $("#countdown-holder").html(fifteenTimer);
@@ -248,23 +283,32 @@ var init = function(memo_init, pgn_init, threshold) {
                 } else {
                     keymove_score = "Fail";
                 }
+                //blinkPlayerImage();
                 var moveInfo = game.move(all_moves[counter]);
                 highlightLastMove(moveInfo);
                 board.position(game.fen());
                 counter++;
-                updateStatus();
+                //updateStatus();
                 if (counter+1 < all_moves.length) {
+                    //resetProgress();
+                    updateStatus();
                     setTimeout(interactiveMove, 3000);
                 } else {
                     game_ended = 1;
+                    updateStatus();
+                    //resetProgress();
                 }
             } else {
                 if (fifteenTimer > 0) {
                     if (counter+1 >= all_moves.length) {
                         game_ended = 1;
+                        //resetProgress();
+                        updateStatus();
+                    } else {
+                        setTimeout(checkEverySecond, 1000);
                     }
-                    setTimeout(checkEverySecond, 1000);
                 } else {
+                    //blinkPlayerImage();
                     var moveInfo = game.move(all_moves[counter]);
                     highlightLastMove(moveInfo);
                     board.position(game.fen());
@@ -272,10 +316,14 @@ var init = function(memo_init, pgn_init, threshold) {
                     keymove_score = "Fail";
                     if (counter+1 >= all_moves.length) {
                         game_ended = 1;
-                    }
-                    updateStatus();
-                    if (counter+2 < all_moves.length) {
+                        //resetProgress();
+                        updateStatus();
+                    } else if (counter+2 < all_moves.length) {
+                        //resetProgress();
+                        updateStatus();
                         setTimeout(interactiveMove, 3000);
+                    } else {
+                        updateStatus();
                     }
                 }
             }
@@ -286,11 +334,14 @@ var init = function(memo_init, pgn_init, threshold) {
     
     // movePov = SECRETPOV;
     board = ChessBoard('board', cfg);
+    //console.log("pgn last" + pgn);
     scratch_game.load_pgn(pgn.join('\n'));
+    //game.load_pgn(pgn.join('\n'));
     all_moves = scratch_game.history();
+    //all_moves = game.history();
+    console.log(all_moves);
     initializeUIComponents();
     counter = 0;
-    moveThreshold = threshold;
     makeMoveUntil();
     updateStatus();
 }; // end init()
@@ -310,9 +361,9 @@ function flipPlayerInfoMap(playerMap) {
 function flipTheBoard() {
     board.orientation('flip');
     
-    //     switchCSS('#player-w-name', '#player-b-name');
-    //     switchCSS('#player-w-img', '#player-b-img');
-    // switchCSS($('#player-w-name'), $('#player-w-name'));
+    //     switchCSS('#player-y-name', '#player-x-name');
+    //     switchCSS('#player-y-img', '#player-x-img');
+    // switchCSS($('#player-y-name'), $('#player-y-name'));
     
     //var divWText = $(playerNameElementMap['w']).html();
     //var divBText = $(playerNameElementMap['b']).html();
@@ -418,11 +469,8 @@ function filterMovesInOpponentCamp(moves) {
 }
 
 function initializePlayerNames() {
-    var player_w_name = getKey('White');
-    $(playerNameElementMap['w']).html(player_w_name);
-    
-    var player_b_name = getKey('Black');
-    $(playerNameElementMap['b']).html(player_b_name);
+    $(playerNameElementMap['w']).html(getKey('White'));
+    $(playerNameElementMap['b']).html(getKey('Black'));
 }
 
 function updateArrow(isMoveCorrect) {
@@ -440,6 +488,7 @@ function updateArrow(isMoveCorrect) {
     $('#arrow-head-path').css({ opacity: 1.0 });
     setTimeout("$('#arrow-svg').css('zIndex', -1);$('.chessboard-63f37').css('zIndex', 0);", 2000);
 }
+
 function drawArrow(from, to, width ) {
     fromDiv = $('*[data-square=' + from + ']');
     fromDivOffset = fromDiv.offset();
