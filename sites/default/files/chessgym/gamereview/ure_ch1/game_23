@@ -1,6 +1,6 @@
-[PreMove "0"]
+[Premove "0"]
 [Result "1/2-1/2"]
 [FEN "1R6/8/8/8/8/r3p1K1/8/3k4 w - - 0 1"]
-[PlyCount "30"]
-1.Rb1+ Kc2 2.Rb8 Rc3 3.Kf3 Kd1 4.Rb1+ Kd2 5.Rb2+ Kd3 6.Re2 Kd4 7.Re1 Ra3 8.Rd1+ Rd3 9.Re1 Rb3 10.Rd1+ Ke5 11.Re1 Kd4 12.Rd1+ Rd3 13.Re1 Rd2 14.Rxe3 Rd3 15.Rxd3+ Kxd3 $11 1/2-1/2
+[PlyCount "29"]
+1.Rb1+ Kc2 2.Rb8 Rc3 3.Kf3 Kd1 4.Rb1+ Kd2 5.Rb2+ Kd3 6.Re2 Kd4 7.Re1 Ra3 8.Rd1+ Rd3 9.Re1 Rb3 10.Rd1+ Ke5 11.Re1 Kd4 12.Rd1+ Rd3 13.Re1 Rd2 14.Rxe3 Rd3 15.Rxd3+ 1/2-1/2
 

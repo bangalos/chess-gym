@@ -1,7 +1,7 @@
-[PreMove "0"]
+[Premove "0"]
 [Result "0-1"]
 [FEN "8/8/4r1k1/6p1/8/8/3K4/1R6 b - - 0 1"]
 [PlyCount "31"]
-[Pov "Black"]
-1..Re5 2.Rf1 Kh5 3.Rh1+ Kg4 4.Kd1 Kf4 5.Rh5 Re7 6.Rh1 g4 7.Rg1 Kf3 8.Rf1+ Kg2 9.Rf6 g3 10.Rg6 Kf2 11.Rf6+ Kg1 12.Rg6 g2 13.Rg5 Re4 14.Kd2 Kf2 15.Rf5+ Kg3 16.Rg5+ Rg4 $19 0-1
+[POV "Black"]
+1..Re5 2.Rf1 Kh5 3.Rh1+ Kg4 4.Kd1 Kf4 5.Rh5 Re7 6.Rh1 g4 7.Rg1 Kf3 8.Rf1+ Kg2 9.Rf6 g3 10.Rg6 Kf2 11.Rf6+ Kg1 12.Rg6 g2 13.Rg5 Re4 14.Kd2 Kf2 15.Rf5+ Kg3 16.Rg5+ Rg4 0-1
 

@@ -1,6 +1,6 @@
-[PreMove "0"]
+[Premove "0"]
 [Result "1-0"]
 [FEN "6K1/3k2P1/8/8/8/8/7r/4R3 w - - 0 1"]
 [PlyCount "11"]
-1.Re4 Rh1 2.Kf7 Rf1+ 3.Kg6 Rg1+ 4.Kf6 Rf1+ 5.Kg5 Rg1+ 6.Rg4 $18 1-0
+1.Re4 Rh1 2.Kf7 Rf1+ 3.Kg6 Rg1+ 4.Kf6 Rf1+ 5.Kg5 Rg1+ 6.Rg4 1-0
 

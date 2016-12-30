@@ -1,7 +1,7 @@
-[PreMove "0"]
+[Premove "0"]
 [Result "1/2-1/2"]
 [FEN "5k2/R7/6K1/5P2/8/8/8/1r6 b - - 0 1"]
-[PlyCount "10"]
-[Pov "Black"]
-1..Rf1 2.Kf6 Kg8 3.Ra8+ Kh7 4.Rf8 Ra1 5.Re8 Rf1 6.Ke6 $11 1/2-1/2
+[PlyCount "9"]
+[POV "Black"]
+1..Rf1 2.Kf6 Kg8 3.Ra8+ Kh7 4.Rf8 Ra1 5.Re8 Rf1 1/2-1/2
 
