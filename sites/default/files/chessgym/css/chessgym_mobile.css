@@ -104,14 +104,14 @@
     visibility: visible;
 }
 
-#player-b-img-div {
+#player-x-img-div {
     width: 5.5%;
     display: block;
     float: top;
     margin: auto;
 }
 
-#player-b-name-position {
+#player-x-name-position {
     width: 40%;
     display: block;
     float: top;
@@ -133,7 +133,7 @@
     float: left;
 }
 
-#player-w-name-position {
+#player-y-name-position {
     width: 40%;
     display: block;
     float: top;
@@ -143,7 +143,7 @@
     text-align: center;
 }
 
-#player-w-img-div {
+#player-y-img-div {
     width: 5.5%;
     display: block;
     float: top;

@@ -20,17 +20,23 @@
         <!-- <div>Memorable information: <span id="memorable"></span></div>-->
         <!--<p>Enter your move on the board in <span id="countdown-holder">X</span> seconds</p>-->
         
-        <div style="margin-top:10%;clear:both"></div>
+        <div style="clear:both"></div>
+        
+    <!--    <div id="nextBtnDiv">
+            <a href="SECRETNEXT">
+                <img id="nextBtn" height="40" onclick="window.location = SECRETNEXT"></img>
+            </a>
+        </div> -->
         
         <div id="player-x-img-div">
             <img id="player-x-img" class="player" height="70"></img>
         </div>
         
         <div id="player-x-name-position">
-            <label id="player-x-name" style="font-size:40px;font-weight:bold"></label>
+            <label id="player-x-name" style="font-weight:bold"></label>
         </div>
         
-   <!--     <div style="overflow:hidden">
+        <div style="overflow:hidden">
             <div id = "left-panel">
                 <table class="info-table">
                     <colgroup>
@@ -38,7 +44,7 @@
                             <col span="1" style="width: 62%;">
                                 </colgroup>
                     
-                    <tr>
+                   <!-- <tr>
                         <td>Game Profile </td>
                         <td><span id="player_name"></span>
                             
@@ -47,35 +53,44 @@
                                 <span id="info-tooltip" class="tooltiptext"></span>
                             </div>
                         </td>
-                    </tr>
-                    <tr>
+                    </tr> -->
+                   <tr>
+                       <td>Status </td>
+                       <td><span id="status"></span></td>
+                   </tr>
+            <!--        <tr>
                         <td>User Move </td>
                         <td><span id="user_move_html"></span></td>
                     </tr>
                     <tr>
                         <td>Game Move </td>
                         <td><span id="game_move_html"></span></td>
-                    </tr>
+                    </tr>-->
                     <tr>
-                        <td>Plies Remaining </td>
+                        <td>No. of moves remaining </td>
                         <td><span id="plies_remaining_html"></span></td>
                     </tr>
-                    <tr>
+                    <tr class="postgame">
                         <td>Your Score </td>
                         <td><span id="your_score_html"></span></td>
                     </tr>
-                    <tr>
-                        <td>Status </td>
-                        <td><span id="status"></span></td>
+                    
+                    <tr class="postgame">
+                        <td>Next Game </td>
+                        <td><a href="javascript:window.location.href=window.location.href">Practice this again</a><br/>
+                            <a href="SECRETNEXT">Go To Next Position</a><br/>
+                            <a href="http://www.chess-gym.com">Go To Home Page</a><br/>
+                        </td>
                     </tr>
-                    <tr>
+                    
+                   <!-- <tr>
                         <td>FEN </td>
                         <td><span id="fen"></span></td>
                     </tr>
                     <tr>
                         <td>PGN </td>
                         <td style="word-wrap:break-word"><span id="pgn"></span></td>
-                    </tr>
+                    </tr>-->
                     <!--        <tr>
                      <td>Mobility for pieces: </td>
                      <td><label id="mobilityStr"></label> </td>
@@ -84,42 +99,29 @@
                      <td>Total no. of spaces to move to in opponent's camp: </td>
                      <td><label id="opponentSpacesCnt"></label></td>
                      </tr> -->
-               <!-- </table>
-            </div> -->
+                </table>
+                
+            </div>
             
             <div id="board">
                 
             </div>
-            
+            <div id="progressBar"><div></div></div>
         </div>
         
         <div id= "player-y-name-position">
-            <label id="player-y-name" style="font-size:40px;font-weight:bold"></label>
+            <label id="player-y-name" style="font-weight:bold"></label>
         </div>
         
         <div id="player-y-img-div">
             <img id="player-y-img" class="player" height="70"></img>
         </div>
         
-        <div id="progressBar"><div></div></div>
-        
         <div class="footer">
-                <div id="control-pnl-left">
-                    <img id="refreshBtn" style="height:60px;" onclick="refresh()"></img>
-                </div>
-                <div id="control-pnl-center">
-                    <img id="flipBtn" style="height:60px;" onclick="flipTheBoard()"></img>
-                    <img id="pauseBtn" style="height:60px;margin-left:5%" onclick="pause()"></img>
-                </div>
-                <div id="control-pnl-right">
-                    <a href="SECRETNEXT">
-                    <img id="nextBtn" style="height:60px;" onclick="window.location = SECRETNEXT"></img>
-                    </a>
-                </div>
-            <!--<div id="nextBtnDiv">
-                <img id="nextBtn" style="height:60px" onclick="window.location = SECRETNEXT"></img>
-            </div>
-            <a href="SECRETNEXT">Next Game</a> -->
+            <img id="flipBtn" height="40" onclick="flipTheBoard()"></img>
+            <img id="pauseBtn" height="40" onclick="pause()"></img>
+            
+            <!--          <a href="SECRETNEXT">Next Game</a> -->
             <!--   <p>Score: <span id="score"></span></p>
              <p>Status: <span id="status"></span></p> -->
             <!--
@@ -151,7 +153,6 @@
         
         <!-- end example HTML --->
         <script>
-            
             function isIPAddress(hname){
                 validIp = false;
                 ipParts = hname.split(".");
@@ -167,38 +168,38 @@
                 return validIp;
             }
         
-            function isDevo(hname){
-                return hname == 'localhost' || isIPAddress(hname);
-            }
+        function isDevo(hname){
+            return hname == 'localhost' || isIPAddress(hname);
+        }
         
-            function getUrlRoot() {
-                return isDevo(window.location.hostname) ? '/drupal' : '';
-            }
+        function getUrlRoot() {
+            return isDevo(window.location.hostname) ? '/drupal' : '';
+        }
         
-            function addStylesheet(href) {
-                var s = document.createElement('link');
-                s.setAttribute('rel', 'stylesheet');
-                s.setAttribute('href', getUrlRoot() + href);
-                document.head.appendChild(s);
-            }
+        function addStylesheet(href) {
+            var s = document.createElement('link');
+            s.setAttribute('rel', 'stylesheet');
+            s.setAttribute('href', getUrlRoot() + href);
+            document.head.appendChild(s);
+        }
         
-            function addScript(src) {
-                var s = document.createElement('script');
-                s.setAttribute('src', getUrlRoot() + src);
-                document.head.appendChild(s);
-            }
+        function addScript(src) {
+            var s = document.createElement('script');
+            s.setAttribute('src', getUrlRoot() + src);
+            document.head.appendChild(s);
+        }
         
-            addStylesheet("/sites/default/files/chessgym/css/chessboard.css");
-            addStylesheet("/sites/default/files/chessgym/css/chessgym_mobile.css");
+        addStylesheet("/sites/default/files/chessgym/css/chessboard.css");
+        addStylesheet("/sites/default/files/chessgym/css/chessgym_web.css");
         
-            addScript("/sites/default/files/chessgym/js/chess.js");
-            addScript("/sites/default/files/chessgym/js/json3.min.js");
-            addScript("/sites/default/files/chessgym/js/jquery-1.10.1.min.js");
-            addScript("/sites/default/files/chessgym/js/chessboard.js");
-            addScript("/sites/default/files/chessgym/js/countdown.js");
-            addScript("/sites/default/files/chessgym/js/chessgym-init.js");
+        addScript("/sites/default/files/chessgym/js/chess.js");
+        addScript("/sites/default/files/chessgym/js/json3.min.js");
+        addScript("/sites/default/files/chessgym/js/jquery-1.10.1.min.js");
+        addScript("/sites/default/files/chessgym/js/chessboard.js");
+        addScript("/sites/default/files/chessgym/js/countdown.js");
+        addScript("/sites/default/files/chessgym/js/chessgym-init.js");
         
-        </script>
+            </script>
         
         <script defer='defer'>
             // required for debugging
@@ -213,52 +214,52 @@
                             '',
                             'SECRETPGN'];
             var threshold = 'SECRETTHRESHOLD';
+            var pov = 'SECRETPOV';
             
             function progress(timer) {
-                $('#progressBar').hide();
-                var boardWidth = $('.board-b72b1').width();
-                var progressBarWidth = (boardWidth / INIT_TIMER) * (INIT_TIMER - timer);
-                $('#progressBar').find('div').animate({ width: progressBarWidth }, 500).html("<label style=\"font-size:25px;font-weight:bold;text-align:center;margin-left:2px;margin-right:2px;color:black\">"+timer + "</label>");
-            
-                if (progressBarWidth == (boardWidth / INIT_TIMER) * INIT_TIMER) {
+                var boardHeight = $('.board-b72b1').height();
+                var progressBarHeight = (boardHeight / INIT_TIMER) * (INIT_TIMER - timer);
+                $('#progressBar').find('div').animate({ height: progressBarHeight }, 500).html("<label style=\"font-size:12px;font- weight:bold;text-align:center;color:black\">"+timer + "</label>");
+                                
+                if (progressBarHeight == (boardHeight / INIT_TIMER) * INIT_TIMER) {
                     setTimeout("$('#progressBar').hide();", 1000);
                 }
             }
+        
+        function initializeUIComponents() {
+            var boardEl = $('.board-b72b1');
+            var chessboardEl = $('.chessboard-63f37');
+            chessboardEl.css('position', 'absolute');
+            chessboardEl.css('z-index', 0);
             
-            function initializeUIComponents() {
-                var boardEl = $('.board-b72b1');
-                var chessboardEl = $('.chessboard-63f37');
-                chessboardEl.css('position', 'absolute');
-                chessboardEl.css('z-index', 0);
+            $('#left-panel').height(boardEl.height());
+            $('#progressBar').height(boardEl.height());
             
-                $('#left-panel').height(boardEl.height());
-                $('#progressBar').width(boardEl.width());
+            $('#arrow-svg').height(chessboardEl.height());
+            $('#arrow-svg').width(chessboardEl.width());
+            $('#arrow-svg').appendTo($('#board'));
+            $('#arrow-svg').css('z-index', -1);
             
-                $('#arrow-svg').height(chessboardEl.height());
-                $('#arrow-svg').width(chessboardEl.width());
-                $('#arrow-svg').appendTo($('#board'));
-                $('#arrow-svg').css('z-index', -1);
+            $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
+            $('#player-y-img').css({'transform': 'rotate(180deg)'});
             
-                $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
-                $(playerImgElementMap['w']).css({'transform': 'rotate(180deg)'});
+            initializePlayerNames();
             
-                initializePlayerNames();
+            $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
             
-                $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
+            $('#info-tooltip').html(memorable_init);
             
-                $('#info-tooltip').html(memorable_init);
+            $('#flipBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/flip.png');
+            $('#pauseBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/pause.png');
+            $('#nextBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/next.png');
             
-                $('#flipBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/flip.png');
-                $('#pauseBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/pause.png');
-                $('#nextBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/next.png');
-                $('#refreshBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
-            
-            }
-    
+        }
+        
+        
         (function() {
          var nTimer = setInterval(function() {
                                   if (window.jQuery) {
-                                  $(document).ready(function() { init(memorable_init, pgn_init, threshold, initializeUIComponents) });
+                                  $(document).ready(function() { init(memorable_init, pgn_init, threshold, pov) });
                                   clearInterval(nTimer);
                                   }
                                   }, 100);
