@@ -105,8 +105,12 @@
         
         <div class="footer">
             <div id="control-pnl-left">
-                <img id="refreshBtn" style="height:60px;" onclick="refresh()"></img>
+                <a href="http://www.chess-gym.com">
+                <img id="homeBtn" style="height:60px;" onclick="window.location = SECRETHOME"></img>
             </div>
+           <!-- <div id="control-pnl-left">
+                <img id="refreshBtn" style="height:60px;" onclick="refresh()"></img>
+            </div>-->
             <div id="control-pnl-center">
                 <img id="flipBtn" style="height:60px;" onclick="flipTheBoard()"></img>
                 <img id="pauseBtn" style="height:60px;margin-left:5%" onclick="pause()"></img>
@@ -250,18 +254,20 @@
             $('#arrow-svg').css('z-index', -1);
             
             $('.player').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/player.png');
-            $(playerImgElementMap['w']).css({'transform': 'rotate(180deg)'});
+            //$(playerImgElementMap['w']).css({'transform': 'rotate(180deg)'});
+            $('#player-y-img').css({'transform': 'rotate(180deg)'});
             
             initializePlayerNames();
             
-            $('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
+            //$('#info-img').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
             
-            $('#info-tooltip').html(memorable_init);
+            //$('#info-tooltip').html(memorable_init);
             
+            $('#homeBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/HomeBtn.png');
             $('#flipBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/flip.png');
             $('#pauseBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/pause.png');
             $('#nextBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/next.png');
-            $('#refreshBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
+          //  $('#refreshBtn').attr('src', getUrlRoot() + '/sites/default/files/chessgym/images/info_image.png');
             
         }
         
