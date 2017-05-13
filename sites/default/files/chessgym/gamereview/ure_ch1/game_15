@@ -1,0 +1,6 @@
+[Premove "0"]
+[Result "1-0"]
+[FEN "1r6/8/7R/3k4/1P6/1K6/8/8 w - - 0 1"]
+[PlyCount "19"]
+1.Ka4 Ra8+ 2.Kb5 Rb8+ 3.Ka5 Ra8+ 4.Ra6 Rb8 5.b5 Kc5 6.Rc6+ Kd5 7.Ka6 Ra8+ 8.Kb7 Ra5 9.b6 Ra1 10.Rc2 $18 1-0
+

@@ -1,0 +1,7 @@
+[Premove "0"]
+[Result "1/2-1/2"]
+[FEN "1r6/8/7R/3k4/1P6/1K6/8/8 b - - 0 1"]
+[PlyCount "7"]
+[POV "Black"]
+1..Ra8 2.Rg6 Ra1 3.b5 Kc5 4.b6 Rb1+ 1/2-1/2
+
