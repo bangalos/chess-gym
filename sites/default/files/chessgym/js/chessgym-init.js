@@ -116,7 +116,7 @@ var init = function(memo_init, pgn_init, threshold, pov) {
             if (counter >= moveThreshold) {
                 drawArrow(source, target, 0);
                 real_move_to = all_moves[counter]
-                setTimeout("updateArrow('"+(real_move_to.endsWith(target))+"');", 1500);
+                setTimeout("updateArrow('"+(real_move_to.endsWith(user_input_move))+"');", 1500);
             }
             
             return 'snapback';
