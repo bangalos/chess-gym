@@ -66,11 +66,11 @@ var init = function(memo_init, pgn_init, threshold, pov) {
     }
     
     if (movePov == 'White') {
-        playerNameElementMap = {'b' : '#player-x-name', 'w' : '#player-y-name'};
-        playerImgElementMap = {'b' : '#player-x-img', 'w' : '#player-y-img'};
-    } else {
         playerNameElementMap = {'w' : '#player-x-name', 'b' : '#player-y-name'};
         playerImgElementMap = {'w' : '#player-x-img', 'b' : '#player-y-img'};
+    } else {
+        playerNameElementMap = {'b' : '#player-x-name', 'w' : '#player-y-name'};
+        playerImgElementMap = {'b' : '#player-x-img', 'w' : '#player-y-img'};
     }
 
     scratch_game = new Chess(getKey('FEN'));
