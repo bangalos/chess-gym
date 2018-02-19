@@ -1,0 +1,16 @@
+[Event "Paris"]
+[Site "Paris FRA"]
+[Date "1867.07.10"]
+[EventDate "1867.06.04"]
+[Round "?"]
+[Result "1-0"]
+[White "Simon Winawer"]
+[Black "Emile D Andre"]
+[ECO "C51"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[PlyCount "25"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Be7 6. d4 Bf6
+7. dxe5 Nxe5 8. Nxe5 Bxe5 9. Bxf7+ Kxf7 10. Qd5+ Kf6 11. f4
+Bxc3+ 12. Nxc3 c6 13. Qg5+ 1-0

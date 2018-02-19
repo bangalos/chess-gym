@@ -1,0 +1,14 @@
+[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "1/2-1/2"]
+[WhiteElo ""]
+[BlackElo ""]
+[ECO ""]
+[FEN "8/8/8/8/5P2/k7/8/K7 b - - 0 1"]
+[SetUp "1"]
+
+1...Kb4 2.f5 Kc5 3.f6 Kd6 4.f7 Ke7 5.f8=Q+ Kxf8  1/2-1/2

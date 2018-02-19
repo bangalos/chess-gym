@@ -1,0 +1,14 @@
+[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "1-0"]
+[WhiteElo ""]
+[BlackElo ""]
+[ECO ""]
+[FEN "4k3/8/8/1p5p/1P5P/8/8/4K3 w - - 0 1"]
+[SetUp "1"]
+
+1.Ke2 Kf8 2.Kd3 Ke7 3.Ke3 Ke6 4.Ke4 Kd6 5.Kd4 Kc6 6.Ke5 Kb6 7.Kd6 Ka6 8.Kc6 Ka7 9.Kxb5 Kb7 10.Kc5 Ka6 11.Kc6 Ka7 12.Kd5 Kb6 13.Ke5 Kb5 14.Kf5 Kxb4 15.Kg5 Kc5 16.Kxh5 Kd6 17.Kg6 Ke7 18.Kg7 Ke6 19.h5 Ke7 20.h6 Ke6 21.h7 Ke7 22.h8=Q  1-0
