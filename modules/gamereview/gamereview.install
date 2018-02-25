@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Creates some default entries on this module custom table.
+ *
+ * @see hook_install()
+ *
+ * @ingroup gamereview
+ */
+function gamereview_install() {
+  $fields = [
+    'username' => 'bangalos',
+    'coursename' => 'rook_endgame',
+    'gameid' => 'game_1',
+    'score' => 1,
+    'timestamp' => '2018:02:14 12:00:00'
+  ];
+  db_insert('gamereview_progress')
+    ->fields($fields)
+    ->execute();
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup gamereview
+ */
+function gamereview_schema() {
+  $schema['gamereview_progress'] = [
+    'description' => 'Stores example person entries for demonstration purposes.',
+    'fields' => [
+      'username' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 'anonymous',
+        'description' => "Players username",
+      ],
+      'coursename' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 'rook_endgame',
+        'description' => 'Name of the course.',
+      ],
+      'gameid' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => "Game Id",
+      ],
+      'score' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => "Score",
+      ],
+      'timestamp' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '2000-01-01 00:00:00',
+        'description' => 'Timestamp of when the gamereview was completed.',
+      ],
+    ]
+  ];
+  return $schema;
+}

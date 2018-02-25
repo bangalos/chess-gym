@@ -5,6 +5,13 @@ gamereview.web:
   requirements:
     _permission: 'access content'
 
+gamereview.score:
+  path: '/gamereview/score/{gamedir}/{gamefile}/{gamescore}'
+  defaults:
+    _controller: '\Drupal\gamereview\Controller\GameReviewController::score'
+  requirements:
+    _permission: 'access content'
+
 gamereview.mobile:
   path: '/gamereview/mobile/{gamedir}/{gamefile}'
   defaults:

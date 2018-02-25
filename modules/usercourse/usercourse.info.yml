@@ -1,0 +1,5 @@
+name: User Course
+type: module
+description: 'User Course Navigation And Progress'
+package: Development
+core: 8.x

@@ -71,7 +71,7 @@
                         <td><span id="plies_remaining_html"></span></td>
                     </tr>
                     <tr class="postgame">
-                        <td>Your Score </td>
+                        <td><span id="game_review_record_status">Your Score</span></td>
                         <td><span id="your_score_html"></span></td>
                     </tr>
                     
@@ -215,6 +215,7 @@
                             'SECRETPGN'];
             var threshold = 'SECRETTHRESHOLD';
             var pov = 'SECRETPOV';
+            var score_url = 'SECRETSCOREURL';
             
             function progress(timer) {
                 var boardHeight = $('.board-b72b1').height();

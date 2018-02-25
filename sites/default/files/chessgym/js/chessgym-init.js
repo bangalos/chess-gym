@@ -216,6 +216,16 @@ var init = function(memo_init, pgn_init, threshold, pov) {
         var opponentSpaces = filterMovesInOpponentCamp(movesByUniqueSpaces);
         $("#opponentSpacesCnt").html(opponentSpaces.length);
         
+        if (game_ended) {
+            score_to_record = 0;
+            if (total_moves > 0) {
+                score_to_record = Math.round( 100 * your_score / total_moves);
+            }
+            score_url = score_url + score_to_record;
+            $.ajax({url: score_url, success: function(result){
+                $("#game_review_record_status").html(result);
+            }});
+        }
     };
     var cfg = {
     draggable: true,

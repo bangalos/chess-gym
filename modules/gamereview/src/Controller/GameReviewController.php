@@ -5,6 +5,7 @@
      */
     namespace Drupal\gamereview\Controller;
     use Drupal\Core\Url;
+    use Drupal\user\Entity;
     use Drupal\Core\Controller\ControllerBase;
     use \Symfony\Component\HttpFoundation\Response;
     use \Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,6 +30,7 @@
                 $nextgamefile = "$match[3]_" . ($match[4] + 1);
                 $defaultgamefile = "$match[3]_1";
                 $sitebaseuri = "$match[1]amereview/$class/$gamedir";
+                $gamescoreurl = "$match[1]amereview/score/$gamedir/$gamefile/";
             }
             $pgn_file_name = "rudolf_spielmann/game_9";
             if ($gamedir != "" && $gamefile != "") {
@@ -80,6 +82,7 @@
             $feed = str_replace('SECRETTHRESHOLD', $threshold, $feed);
             $feed = str_replace('SECRETPOV', $pov, $feed);
             $feed = str_replace('SECRETNEXT', $nextgameurl, $feed);
+            $feed = str_replace('SECRETSCOREURL', $gamescoreurl, $feed);
             $response->setContent($feed);
             return $response;
         }
@@ -90,5 +93,28 @@
         
         public function mobile($gamedir, $gamefile) {
             return $this->gamereview($gamedir, $gamefile, "mobile", "gamereview_core_mobile_new.html");
+        }
+
+        public function score($gamedir, $gamefile, $gamescore) {
+            $response = new Response();
+            $response->headers->set('Expires', 'Sun, 19 Nov 1978 05:00:00 GMT');
+            $response->headers->set('Cache-Control', 'must-revalidate');
+            $response->headers->set('Content-Type', 'text/html; charset=utf-8');
+            $response_text = "Score recorded!";
+            $user = \Drupal::service('current_user');
+            $uid = $user->id();
+            $formatted_name = $user->getDisplayName();
+            if ($formatted_name != "Anonymous") {
+                $fields = [
+                    'username' => $formatted_name,
+                    'coursename' => $gamedir,
+                    'gameid' => $gamefile,
+                    'score' => $gamescore,
+                    'timestamp' => '2018:02:14 12:00:00'
+                ];
+                db_insert('gamereview_progress') ->fields($fields) ->execute();
+            }
+            $response->setContent($response_text);
+            return $response;
         }
     }

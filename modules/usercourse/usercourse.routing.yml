@@ -1,0 +1,13 @@
+usercourse.web:
+  path: '/usercourse/web/{gamedir}'
+  defaults:
+    _controller: '\Drupal\usercourse\Controller\UserCourseController::web'
+  requirements:
+    _permission: 'access content'
+
+usercourse.mobile:
+  path: '/usercourse/mobile/{gamedir}'
+  defaults:
+    _controller: '\Drupal\usercourse\Controller\UserCourseController::mobile'
+  requirements:
+    _permission: 'access content'
