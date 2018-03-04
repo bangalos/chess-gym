@@ -1,0 +1,11 @@
+Title	Endgame Fundamentals.
+Description	Endgames are essential to understand chess. While endgames can be studied on their own, middle game and opening must be studied in relation to the endgame - Jose Raul Capablanca.
+game_1	Black to play and draw
+game_2	White to play and draw
+game_3	White to play and draw
+game_4	White to play and win
+game_5	White to play and draw
+game_6	White to play and win
+game_7	White to play and win
+game_8	White to play and win
+game_9	White to play and win

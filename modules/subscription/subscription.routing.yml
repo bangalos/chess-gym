@@ -1,0 +1,6 @@
+subscription.sub:
+  path: '/sub'
+  defaults:
+    _controller: '\Drupal\subscription\Controller\SubscriptionController::sub'
+  requirements:
+    _permission: 'access content'

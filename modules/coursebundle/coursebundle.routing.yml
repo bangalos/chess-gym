@@ -1,0 +1,6 @@
+coursebundle.coursebundle:
+  path: '/coursebundle/{cb}'
+  defaults:
+    _controller: '\Drupal\coursebundle\Controller\CoursebundleController::coursebundle'
+  requirements:
+    _permission: 'access content'

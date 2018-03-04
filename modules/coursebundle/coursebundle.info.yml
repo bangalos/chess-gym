@@ -1,0 +1,5 @@
+name: Course Bundle
+type: module
+description: 'Course Bundle Navigation'
+package: Development
+core: 8.x

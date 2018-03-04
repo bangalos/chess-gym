@@ -1,0 +1,5 @@
+Title	Art Of Planning In Chess
+Description	Planning is the process by which a player utilizes the advantages and minimizes the drawbacks of his position. In order to promise success, planning is thus always based on diagnosis of the existing charesteristics of the position; it is therefore most difficult when the position is evenly balanced, and easiest when there is only one plan to satisfy the demands of the position. Planlessness always gets punished.
+game_1	Alexander Alekhine vs Frank James Marshall, 1925.05.08, Baden-Baden
+game_2	Test Position II
+game_3	Test Position III

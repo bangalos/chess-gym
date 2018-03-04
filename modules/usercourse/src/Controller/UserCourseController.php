@@ -54,12 +54,12 @@
 
             foreach ($overview_lines as $line) {
                 $line = rtrim($line);
-                if (preg_match("/^title\t(.+?)$/", $line, $match)) {
+                if (preg_match("/^Title\t(.+?)$/", $line, $match)) {
                     $course_title = $match[1];
-                } else if (preg_match("/^description\t(.+?)$/", $line, $match)) {
+                } else if (preg_match("/^Description\t(.+?)$/", $line, $match)) {
                     $course_description = $match[1];
                 } else {
-                    if (preg_match("/^game(.+?)\t(.+?)$/", $line, $match)) {
+                    if (preg_match("/^game_(.+?)\t(.+?)$/", $line, $match)) {
                         $game_table[$match[1]] = $match[2];
                     }
                 } 
@@ -98,8 +98,8 @@
             $course_table = '<table id="course_table"><tr><td>Game ID</td><td>Game Description</td><td>Progress</td></tr>';
             foreach($game_table as $gameid => $gamedesc) {
                 $game_progress_status = " - ";
-                if ($progress["game$gameid"]) {$game_progress_status = "Done";}
-                $course_table .= "<tr><td><a href='$gamereviewuri/game$gameid'>$gameid</a></td><td>$gamedesc &nbsp;</td><td>$game_progress_status</td></tr>";
+                if ($progress["game_$gameid"]) {$game_progress_status = "Done";}
+                $course_table .= "<tr><td><a href='$gamereviewuri/game_$gameid'>$gameid</a></td><td>$gamedesc &nbsp;</td><td>$game_progress_status</td></tr>";
             }
             $course_table .= "</table>";
             $course_div .= $course_table;

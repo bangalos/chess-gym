@@ -1,0 +1,3 @@
+Title	The Chess Foundation Course By Mick Bighamian
+Description	Only available to the advanced students of Mick Bighamian and premium members of Los Angeles Chess Club, The Chess Foundation Course by Mick Bighamian is the perfect complement to the private lessons from the Life Senior Master Mick Bighamian.
+Content	mick_b_foundation_opening_evans_gambit,mick_b_foundation_opening_milner_barry_gambit,mick_b_foundation_opening_smith_morra_gambit,mick_b_foundation_opening_two_knights,mick_b_foundation_middlegame,mick_b_foundation_endgame,mick_b_foundation_planning

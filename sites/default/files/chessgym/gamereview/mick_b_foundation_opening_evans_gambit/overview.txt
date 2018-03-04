@@ -1,0 +1,10 @@
+Title	Evans Gambit
+Description	Evans Gambit is an attacking line for White, popular from the era of Paul Morphy to Garry Kasparov, recommended for Beginner/Intermediate players - in order to improve their pattern recognition. 
+game_1	Paul Morphy vs Alonzo Morphy, 1849, New Orleans, LA USA
+game_2	Paul Morphy vs Jean Adolphe Laroche, 1858, Paris FRA
+game_3	Savielly Tartakower vs Gustaf Nyholm, 1914.04.25, Baden bei Wien AUH
+game_4	Simon Winawer vs Emile D Andre, 1867.07.10, Paris FRA
+game_5	Robert James Fischer vs R Sugerman, 1964.03.23, Chicago, IL USA
+game_6	Robert James Fischer vs J Boatner, 1964.03.28, Houston, TX USA
+game_7	Bill Wall vs Venton Duncan, 1981, Dayton, OH USA
+game_8	Neumann, Gustav Richard vs Anderssen, Adolf, 1865, Berlin

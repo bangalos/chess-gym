@@ -1,0 +1,5 @@
+Title	French Defense: Milner Gambit
+Description	Milner Barry Gambit is an attacking opening for White, recommended for Beginner/Intermediate players - in order to improve their pattern recognition. 
+game_1	Friedman, Josef vs Heiser, Eric A, 2004.4.3, Virginia Beach USA
+game_2	Kruglikov vs Sarti, 2004, Dos Hermanas
+game_3	Patrice Etchegaray vs Jeremy Henneteau, 1998, France

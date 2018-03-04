@@ -1,0 +1,5 @@
+Title	Sicilian Defense: Smith Morra Gambit
+Description	Smith Morra Gambit is an attacking opening for White, recommended for Beginner/Intermediate players - in order to improve their pattern recognition. 
+game_1	Mikhail Tal vs Neibult, 1991, URS
+game_2	Ragnar Krogius vs Antti G Ojanen, 1944, Helsinki FIN
+game_3	David L Zardus vs Anthony Steventon, 1986, New Jersey

@@ -1,0 +1,29 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function subscription_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.subscription':
+      return t('
+        <h2>User Course Module for Drupal.</h2>
+      ');
+  }
+}
+/**
+ * Implements hook_theme().
+ */
+function subscription_theme($existing, $type, $theme, $path) {
+  $variables = array(
+    'subscription' => array(
+      'variables' => array(
+        'source_text' => NULL,
+      ),
+      'template' => 'subscription',
+    ),
+  );
+  return $variables;
+}

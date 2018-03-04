@@ -1,0 +1,8 @@
+Title	Two Knights Defense: Fried Liver Attack
+Description	Fried Liver Attack is a gambit line for White, recommended for Beginner/Intermediate players - in order to improve their pattern recognition. 
+game_1	Robert James Fischer vs Denis Allan, 1964.02.24, Montreal CAN
+game_2	Robert James Fischer vs Fred Gruenberg, 1964.03.23, Chicago, IL USA
+game_3	Robert James Fischer vs T Rouse, 1964.03.23, Chicago, IL USA
+game_4	Robert James Fischer vs R Snuske, 1964.05.16, Flint, MI USA
+game_5	Robert James Fischer vs L Redman, 1964.03.23, Chicago, IL USA
+game_6	Robert James Fischer vs Juergen Kuhn, 1964.03.23, Chicago, IL USA

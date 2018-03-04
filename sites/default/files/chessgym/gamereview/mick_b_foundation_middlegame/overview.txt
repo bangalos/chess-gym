@@ -1,0 +1,9 @@
+Title	Middle Game In Chess
+Description	There are 5 types of middle game central pawn formations - (1) Closed Center (2) Open Center (3) Mobile Center (4) Fixed Center and (5) Unclear / Dynamic Center. There is a model game for each type of pawn formation. Also included are two fascinating games in chess history - the immortal game and the evergreen game.
+game_1	Alexander Alekhine vs Jose Raul Capablanca, 1938.11.19, The Netherlands
+game_2	Alexander Alekhine vs Emanuel Lasker, 1934.07.25, Zurich SUI
+game_3	Max Euwe vs Alexander Alekhine, 1935.12.03, The Netherlands
+game_4	Mark Moiseevich Stolberg vs Mikhail Botvinnik, 1940.09.13, Moscow URS
+game_5	Vasily Smyslov vs Alexander Kotov, 1943, Moscow URS
+game_6	Immortal Game: Adolf Anderssen vs Lionel Adalbert Bagration Felix Kieseritzky, 1851.06.21, London ENG
+game_7	Evergreen Game: Adolf Anderssen vs Jean Dufresne, 1852, Berlin GER

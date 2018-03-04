@@ -1,0 +1,29 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function coursebundle_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.coursebundle':
+      return t('
+        <h2>User Course Module for Drupal.</h2>
+      ');
+  }
+}
+/**
+ * Implements hook_theme().
+ */
+function coursebundle_theme($existing, $type, $theme, $path) {
+  $variables = array(
+    'coursebundle' => array(
+      'variables' => array(
+        'source_text' => NULL,
+      ),
+      'template' => 'coursebundle',
+    ),
+  );
+  return $variables;
+}
