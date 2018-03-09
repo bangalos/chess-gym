@@ -4,6 +4,7 @@
      * Contains \Drupal\subscription\Controller\SubscriptionController
      */
     namespace Drupal\subscription\Controller;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
     use Drupal\Core\Url;
     use Drupal\Core\Database\Database;
     use Drupal\Core\Controller\ControllerBase;
@@ -18,6 +19,20 @@
     class SubscriptionController extends ControllerBase{
         
         function sub() {
+
+            $user = \Drupal::service('current_user');
+            $uid = $user->id();
+            $subscription_list = "";
+            $formatted_name = $user->getDisplayName();
+
+            $current_uri = \Drupal::request()->getRequestUri();
+            if (preg_match("/^(.+?)\/sub$/", $current_uri, $match)) {
+                if ($formatted_name == "Anonymous") {
+                    $defaulturi = "$match[1]/default";
+                    return new RedirectResponse($defaulturi);
+                }
+            }
+
             $subscription_file_name = DRUPAL_ROOT . "/sites/default/files/chessgym/subscription/subscription.txt";
             // Read actual feed from file.
             $handle = fopen($subscription_file_name, 'r');
@@ -25,10 +40,6 @@
             fclose($handle);
             $subscription_lines = explode("\n", $feed);
 
-            $user = \Drupal::service('current_user');
-            $uid = $user->id();
-            $subscription_list = "";
-            $formatted_name = $user->getDisplayName();
             if ($formatted_name != "Anonymous") {
                 foreach ($subscription_lines as $user_modules_tuple) {
                     $user_modules_array = explode ("\t", $user_modules_tuple);
