@@ -26,11 +26,9 @@
             $formatted_name = $user->getDisplayName();
 
             $current_uri = \Drupal::request()->getRequestUri();
-            if (preg_match("/^(.+?)\/sub$/", $current_uri, $match)) {
-                if ($formatted_name == "Anonymous") {
-                    $defaulturi = "$match[1]/default";
-                    return new RedirectResponse($defaulturi);
-                }
+            if ($formatted_name == "Anonymous") {
+                $defaulturi = $GLOBALS['base_url'] . "/default";
+                return new RedirectResponse($defaulturi);
             }
 
             $subscription_file_name = DRUPAL_ROOT . "/sites/default/files/chessgym/subscription/subscription.txt";
