@@ -1,0 +1,26 @@
+Title	Simple piece moves.
+Description	How do chess pieces move? In this module, practice making different moves to checkmate.
+game_1	White to move Rook Forward and win
+game_2	White to move Rook Backward and win
+game_3	White to move Rook To Side and win
+game_4	White to move Bishop Forward and win
+game_5	White to move Bishop Backward and win
+game_6	White to move Queen Forward and win
+game_7	White to move Queen Backward and win
+game_8	White to move Queen Diagonally Forward and win
+game_9	White to move Queen Diagonally Backward and win
+game_10	White to move Knight Forward and win
+game_11	White to move Knight Backward and win
+game_12	White to move Pawn two steps forward and win
+game_13	White to move Pawn one step forward and win
+game_14	White to move Pawn to capture and win
+game_15	White to move King and win
+game_16	White to move King to capture and win
+game_17	White to move King to stalemate and draw
+game_18	White to move King to castle short and win
+game_19	White to move King to castle long and win
+game_20	White to move Pawn and capture en passant and win
+game_21	White to move Pawn and promote to Queen and win
+game_22	White to move Pawn and promote to Rook and win
+game_23	White to move Pawn and promote to Bishop and win
+game_24	White to move Pawn and promote to Knight and win
