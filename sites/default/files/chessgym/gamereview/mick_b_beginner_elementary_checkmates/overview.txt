@@ -1,0 +1,22 @@
+Title	Elementary Checkmates.
+Description	How to checkmate the enemy king when you have additional material? In this module, practice checkmating with Queen and Rook (Q+R), Rook and Rook(R+R), Queen alone (Q) and Rook alone (R).
+game_1	White to checkmate with Queen and Rook
+game_2	White to checkmate with Queen and Rook
+game_3	White to checkmate with Queen and Rook
+game_4	White to checkmate with Queen and Rook
+game_5	White to checkmate with Queen and Rook
+game_6	White to checkmate with Rook and Rook
+game_7	White to checkmate with Rook and Rook
+game_8	White to checkmate with Rook and Rook
+game_9	White to checkmate with Rook and Rook
+game_10	White to checkmate with Rook and Rook
+game_11	White to checkmate with Queen
+game_12	White to checkmate with Queen
+game_13	White to checkmate with Queen
+game_14	White to checkmate with Queen
+game_15	White to checkmate with Queen
+game_16	White to checkmate with Rook
+game_17	White to checkmate with Rook
+game_18	White to checkmate with Rook
+game_19	White to checkmate with Rook
+game_20	White to checkmate with Rook
