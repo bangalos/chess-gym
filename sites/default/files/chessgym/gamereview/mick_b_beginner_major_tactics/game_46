@@ -1,0 +1,14 @@
+[Result "1-0"]
+[White "?"]
+[WhiteElo ""]
+[Black "?"]
+[BlackElo ""]
+[ECO ""]
+[Date "????.??.??"]
+[Event "?"]
+[Round "?"]
+[Site "?"]
+[FEN "r3r1k1/p1pb2pp/1bp5/2N1q3/8/2Q1B3/PPP3PP/R4RK1 w - - 0 1"]
+[SetUp "1"]
+
+1.Rf8+ Kxf8 2.Nxd7+ Kg8 3.Nxe5  1-0

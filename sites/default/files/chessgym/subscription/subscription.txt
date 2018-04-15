@@ -1,2 +1,3 @@
 bangalos	mick_b_foundation,srib_master
-mick	mick_b_foundation
+mick	mick_b_foundation,mick_b_beginner_major_tactics
+david_lacc	mick_b_beginner_major_tactic

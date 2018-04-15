@@ -1,0 +1,52 @@
+Title	Beginner Major Tactics.
+Description	There are 8 major tactics: (1) Pin (2) Fork (3) Skewer (4) Discovered Check (5) Double Attack (6) Remove the defender (7) Deflection (8) Decoy. Of course there is the occasional obvious blunder by your opponent, where they simply hang the piece!
+game_1	White to win a hanging piece
+game_2	White to win a hanging piece
+game_3	White to win a hanging piece
+game_4	White to win with pin
+game_5	White to win with pin
+game_6	White to win with pin
+game_7	White to win with pin
+game_8	White to win with pin
+game_9	White to win with pin
+game_10	White to win with pin
+game_11	White to win with pin
+game_12	White to win with pin
+game_13	White to win with pin
+game_14	White to win with pin
+game_15	White to win with pin
+game_16	White to win with pin
+game_17	White to win with pin
+game_18	White to win with fork
+game_19	White to win with fork
+game_20	White to win with fork
+game_21	White to win with fork
+game_22	White to win with fork
+game_23	White to win with fork
+game_24	White to win with fork
+game_25	White to win with fork
+game_26	White to win with fork
+game_27	White to win with discovery
+game_28	White to win with discovery
+game_29	White to win with discovery
+game_30	White to win with discovery
+game_31	White to win with double attack
+game_32	White to win with double attack
+game_33	White to win with double attack
+game_34	White to win with double attack
+game_35	White to win with removing the defender
+game_36	White to win with removing the defender
+game_37	White to win with removing the defender
+game_38	White to win with removing the defender
+game_39	White to win due to overloading
+game_40	White to win due to overloading
+game_41	White to win due to overloading
+game_42	White to win due to overloading
+game_43	White to win with deflection
+game_44	White to win with deflection
+game_45	White to win with deflection
+game_46	White to win with deflection
+game_47	White to win with decoy
+game_48	White to win with decoy
+game_49	White to win with decoy
+game_50	White to win with decoy
